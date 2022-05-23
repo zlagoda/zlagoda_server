@@ -72,3 +72,41 @@ CREATE TABLE `Store_Product` (
   FOREIGN KEY(`id_product`) REFERENCES `Product` (`id_product`) ON DELETE NO ACTION ON UPDATE CASCADE,
   UNIQUE KEY(`id_product`, `promotional_product`)
 );
+
+DROP TABLE IF EXISTS `Customer_Card`;
+CREATE TABLE `Customer_Card` (
+  `card_number` VARCHAR(13) NOT NULL,
+  `cust_surname` VARCHAR(50) NOT NULL,
+  `cust_name` VARCHAR(50) NOT NULL,
+  `cust_patronymic` VARCHAR(50) NULL,
+  `phone_number` VARCHAR(13) NOT NULL,
+  `city` VARCHAR(50) NULL,
+  `street` VARCHAR(50) NULL,
+  `zip_code` VARCHAR(9) NULL,
+  `percent` INT NOT NULL CHECK (`percent` >= 0 AND `percent` <= 100),
+  PRIMARY KEY (`card_number`)
+);
+
+DROP TABLE IF EXISTS `Check`;
+CREATE TABLE `Check` (
+  `check_number` VARCHAR(10) NOT NULL,
+  `id_employee` VARCHAR(10) NOT NULL,
+  `card_number` VARCHAR(13) NULL,
+  `print_date` DATETIME NOT NULL,
+  `sum_total` DECIMAL(13, 4) NOT NULL,
+  `vat` DECIMAL(13, 4) NOT NULL,
+  PRIMARY KEY (`check_number`),
+  FOREIGN KEY(`id_employee`) REFERENCES `Employee` (`id_employee`) ON DELETE NO ACTION ON UPDATE CASCADE,
+  FOREIGN KEY(`card_number`) REFERENCES `Customer_Card` (`card_number`) ON DELETE NO ACTION ON UPDATE CASCADE
+);
+
+DROP TABLE IF EXISTS `Sale`;
+CREATE TABLE `Sale` (
+  `UPC` VARCHAR(12) NOT NULL,
+  `check_number` VARCHAR(10) NOT NULL,
+  `product_nubmer` INT NOT NULL,
+  `selling_price` DECIMAL(13, 4) NOT NULL,
+  PRIMARY KEY (`UPC`, `check_number`),
+  FOREIGN KEY(`UPC`) REFERENCES `Store_Product` (`UPC`) ON DELETE NO ACTION ON UPDATE CASCADE,
+  FOREIGN KEY(`check_number`) REFERENCES `Check` (`check_number`) ON DELETE CASCADE ON UPDATE CASCADE
+);
