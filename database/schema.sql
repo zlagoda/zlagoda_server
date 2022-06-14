@@ -16,7 +16,7 @@ CREATE TABLE `Employee` (
 
 DROP procedure IF EXISTS `check_age`;
 DELIMITER $
-USE `test`$
+USE `zlagoda`$
 CREATE PROCEDURE `check_age` (IN birthdate DATE)
 BEGIN
 	IF (DATE_SUB(CURRENT_DATE(), INTERVAL 18 YEAR) <= birthdate) THEN
