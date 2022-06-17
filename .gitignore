@@ -27,3 +27,4 @@ target/
 
 # Intelijj IDEA config
 .idea/
+*.iml
