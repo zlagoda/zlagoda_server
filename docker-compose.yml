@@ -1,0 +1,16 @@
+services:
+  database:
+    image: mysql
+    ports:
+      - 3306:3306
+    volumes:
+      - ./database:/docker-entrypoint-initdb.d
+      - database-storage:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=root # change this
+      - MYSQL_USER=zlagoda
+      - MYSQL_PASSWORD=pass # change this
+      - MYSQL_DATABASE=zlagoda
+
+volumes:
+  database-storage:
