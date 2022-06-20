@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ProductSale {
+public class SoldProduct {
     private String UPC;
     private long amount;
     private long price;
