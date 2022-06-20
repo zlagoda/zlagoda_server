@@ -1,14 +1,10 @@
-package zlagoda.server.entity;
+package zlagoda.server.company.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
-@AllArgsConstructor
 public class Category {
    private long id;
    private String name;

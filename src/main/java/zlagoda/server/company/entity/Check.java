@@ -1,17 +1,13 @@
-package zlagoda.server.entity;
+package zlagoda.server.company.entity;
 
 import java.sql.Timestamp;
 import java.util.List;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
-@AllArgsConstructor
 public class Check {
     private String number;
     private Employee employee;
@@ -19,5 +15,5 @@ public class Check {
     private Timestamp printDate;
     private long totalSum;
     private long VAT; // value added tax
-    private List<ProductSale> products;
+    private List<SoldProduct> products;
 }
