@@ -14,5 +14,5 @@ public class CustomerCard {
     private String city;
     private String street;
     private String zipCode;
-    private Long percent;
+    private int percent;
 }

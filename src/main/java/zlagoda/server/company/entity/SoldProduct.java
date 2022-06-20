@@ -1,5 +1,7 @@
 package zlagoda.server.company.entity;
 
+import java.math.BigDecimal;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -7,6 +9,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class SoldProduct {
     private String UPC;
-    private long amount;
-    private long price;
+    private int amount;
+    private BigDecimal price;
 }
