@@ -9,10 +9,10 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class StoreProduct {
+public class ProductInStore {
     private String UPC;
     private String promotionalUPC;
-    private long productId;
+    private Product product;
     private long price;
     private long amount;
     private boolean promotional;    
