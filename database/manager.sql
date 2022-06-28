@@ -237,3 +237,78 @@ SELECT Product.id_product,
 FROM Product
     INNER JOIN Category ON Product.category_number = Category.category_number
 ORDER BY Product.product_name;
+-- 
+-- Отримати інформацію про усі товари у магазині, відсортовані за кількістю
+SELECT Store_Product.UPC,
+    Store_Product.UPC_prom,
+    Product.product_name,
+    Product.characteristics,
+    Category.category_name,
+    Store_Product.selling_price,
+    Store_Product.products_number,
+    Store_Product.promotional_product
+FROM Store_Product
+    INNER JOIN Product ON Store_Product.id_product = Product.id_product
+    INNER JOIN Category ON Product.category_number = Category.category_number
+ORDER BY Store_Product.products_number;
+--
+-- За прізвищем працівника знайти його телефон та адресу
+SELECT id_employee,
+    empl_surname,
+    phone_number,
+    city,
+    street,
+    zip_code
+FROM Employee
+WHERE empl_surname LIKE 'Do%';
+--
+-- Отримати інформацію про усіх постійних клієнтів,
+-- що мають карту клієнта із певним відсотком, посортованих за прізвищем
+SELECT *
+FROM Customer_Card
+WHERE percent BETWEEN 2 AND 5
+ORDER BY cust_surname;
+--
+-- За UPC-товару знайти ціну продажу товару, кількість наявних
+-- одиниць товару, назву та характеристики товару
+SELECT Store_Product.UPC,
+    Product.product_name,
+    Product.characteristics,
+    Category.category_name,
+    Store_Product.selling_price,
+    Store_Product.products_number,
+    Store_Product.promotional_product
+FROM Store_Product
+    INNER JOIN Product ON Store_Product.id_product = Product.id_product
+    INNER JOIN Category ON Product.category_number = Category.category_number
+WHERE Store_Product.UPC = '' --
+    --
+    -- Отримати інформацію про усі акційні товари,
+    -- відсортовані за кількістю одиниць товару/ за назвою
+SELECT Store_Product.UPC,
+    Product.product_name,
+    Product.characteristics,
+    Category.category_name,
+    Store_Product.selling_price,
+    Store_Product.products_number,
+    Store_Product.promotional_product
+FROM Store_Product
+    INNER JOIN Product ON Store_Product.id_product = Product.id_product
+    INNER JOIN Category ON Product.category_number = Category.category_number
+WHERE Store_Product.promotional_product = 1
+ORDER BY Store_Product.products_number;
+--
+-- Отримати інформацію про усі не акційні товари,
+-- відсортовані за кількістю одиниць товару/ за назвою
+SELECT Store_Product.UPC,
+    Product.product_name,
+    Product.characteristics,
+    Category.category_name,
+    Store_Product.selling_price,
+    Store_Product.products_number,
+    Store_Product.promotional_product
+FROM Store_Product
+    INNER JOIN Product ON Store_Product.id_product = Product.id_product
+    INNER JOIN Category ON Product.category_number = Category.category_number
+WHERE Store_Product.promotional_product = 0
+ORDER BY Store_Product.products_number;
