@@ -182,3 +182,58 @@ WHERE UPC = '';
 DELETE FROM `Check`
 WHERE check_number = '';
 --WHERE ...
+--
+--
+--
+-- Select employee sorted by surname
+-- Отримати інформацію про усіх працівників, відсортованих за прізвищем
+SELECT id_employee,
+    empl_surname,
+    empl_name,
+    empl_patronymic,
+    role,
+    salary,
+    date_of_birth,
+    date_of_start,
+    phone_number,
+    city,
+    street,
+    zip_code
+FROM Employee
+ORDER BY empl_surname;
+--
+-- Select employee with role sorted by surname
+-- Отримати інформацію про усіх працівників, що займають посаду, відсортованих за прізвищем
+SELECT id_employee,
+    empl_surname,
+    empl_name,
+    empl_patronymic,
+    salary,
+    date_of_birth,
+    date_of_start,
+    phone_number,
+    city,
+    street,
+    zip_code
+FROM Employee
+WHERE role = ''
+ORDER BY empl_surname;
+--
+-- Отримати інформацію про усіх постійних клієнтів, відсортованих за прізвищем
+SELECT *
+FROM Customer_Card
+ORDER BY cust_surname;
+--
+-- Отримати інформацію про усі категорії, відсортовані за назвою
+SELECT *
+FROM Category
+ORDER BY category_name;
+--
+-- Отримати інформацію про усі товари, відсортовані за назвою
+SELECT Product.id_product,
+    Product.product_name,
+    Product.characteristics,
+    Category.category_name
+FROM Product
+    INNER JOIN Category ON Product.category_number = Category.category_number
+ORDER BY Product.product_name;
