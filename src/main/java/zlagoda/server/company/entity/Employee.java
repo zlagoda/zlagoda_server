@@ -1,5 +1,6 @@
 package zlagoda.server.company.entity;
 
+import java.math.BigDecimal;
 import java.sql.Date;
 
 import lombok.Data;
@@ -16,9 +17,10 @@ public class Employee {
     private String id;
     private String surname;
     private String name;
+    private String password;
     private String patronymic;
     private Role role;
-    private long salary;
+    private BigDecimal salary;
     private Date birthdate;
     private Date startDate;
     private String phoneNumber;

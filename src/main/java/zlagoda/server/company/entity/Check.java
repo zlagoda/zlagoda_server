@@ -1,5 +1,6 @@
 package zlagoda.server.company.entity;
 
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -13,7 +14,7 @@ public class Check {
     private Employee employee;
     private CustomerCard card;
     private Timestamp printDate;
-    private long totalSum;
-    private long VAT; // value added tax
+    private BigDecimal totalSum;
+    private BigDecimal VAT; // value added tax
     private List<SoldProduct> products;
 }

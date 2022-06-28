@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class Product {
-   private long id; 
+   private int id; 
    private Category category;
    private String name;
    private String characteristics;
