@@ -4,6 +4,7 @@ INSERT INTO Employee (
         empl_surname,
         empl_name,
         password,
+        role,
         empl_patronymic,
         salary,
         date_of_birth,
@@ -18,7 +19,7 @@ VALUES (
         'Doe',
         'John',
         '$2a$10$ccTgX4CI.Bx4y9xbQUzSb.WPL2s7TwtZZ3WSW7MrBPFdQyxwwJ7ZS',
-        'Jr.',
+        'CASHIER' 'Jr.',
         '1000',
         '2000-12-08',
         '2022-12-12',
@@ -87,4 +88,53 @@ INSERT INTO Store_Product (
     )
 VALUES (
         '404457230721',
-        '404457230720', 1, 10.5, 100, false);
+        '404457230720',
+        1,
+        10.5,
+        100,
+        false
+    );
+-- Update employee information
+UPDATE Employee
+SET empl_surname = '',
+    empl_name = '',
+    password = '',
+    role = '',
+    empl_patronymic = '',
+    salary = '',
+    date_of_birth = '',
+    date_of_start = '',
+    phone_number = '',
+    city = '',
+    street = '',
+    zip_code = ''
+WHERE id_employee = '';
+-- Update customer card
+UPDATE Customer_Card
+SET cust_surname = '',
+    cust_name = '',
+    cust_patronymic = '',
+    phone_number = '',
+    city = '',
+    street = '',
+    zip_code = '',
+    percent = 1
+WHERE card_number = '';
+-- Update category
+UPDATE Category
+SET category_name = ''
+WHERE category_number = 0;
+-- Update product
+UPDATE Product
+SET category_number = 1,
+    product_name = '',
+    characteristics = ''
+WHERE id_product = 0;
+-- Update product in store
+UPDATE Store_Product
+SET UPC_prom = NULL,
+    id_product = 1,
+    selling_price = 10,
+    products_number = 10,
+    promotional_product = false
+WHERE UPC = '';
