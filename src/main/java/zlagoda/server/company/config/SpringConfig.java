@@ -19,9 +19,4 @@ public class SpringConfig
 		return new BCryptPasswordEncoder();
 	}
 
-	@Bean
-	public NamedParameterJdbcTemplate namedParameterJdbcTemplate(DataSource dataSource)
-	{
-		return new NamedParameterJdbcTemplate(dataSource);
-	}
 }
