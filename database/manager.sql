@@ -1,3 +1,8 @@
+--
+--
+--  Insert queries
+--
+--
 -- insert new employee
 INSERT INTO Employee (
         id_employee,
@@ -94,6 +99,11 @@ VALUES (
         100,
         false
     );
+--
+--
+--  Update queries
+--
+--
 -- Update employee information
 UPDATE Employee
 SET empl_surname = '',
@@ -138,3 +148,37 @@ SET UPC_prom = NULL,
     products_number = 10,
     promotional_product = false
 WHERE UPC = '';
+--
+--
+--  Delete queries
+--
+--
+-- Delete employee
+DELETE FROM Employee
+WHERE id_employee = '';
+--WHERE ...
+--
+-- Delete customer
+DELETE FROM Customer_Card
+WHERE card_number = '';
+--WHERE ...
+--
+-- Delete category
+DELETE FROM Category
+WHERE category_number = 0;
+--WHERE ...
+--
+-- Delete product
+DELETE FROM Product
+WHERE id_product = 0;
+--WHERE ...
+--
+-- Delete product in store
+DELETE FROM Store_Product
+WHERE UPC = '';
+--WHERE ...
+--
+-- Delete check 
+DELETE FROM `Check`
+WHERE check_number = '';
+--WHERE ...
