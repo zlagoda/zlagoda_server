@@ -34,21 +34,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(final HttpSecurity httpSecurity) throws Exception {
 		httpSecurity
-				.authorizeRequests().anyRequest().authenticated()
+				.authorizeRequests()
 				.and()
-				.httpBasic().authenticationEntryPoint(new AuthenticationEntryPoint() {
-					@Override
-					public void commence(HttpServletRequest request, HttpServletResponse response,
-							org.springframework.security.core.AuthenticationException authException)
-							throws IOException, ServletException {
-						response.addHeader("WWW-Authenticate", "Application driven");
-						response.sendError(HttpServletResponse.SC_UNAUTHORIZED, authException.getMessage());
-
-					}
-				})
+				.formLogin()
+				.loginPage("/login")
+				.defaultSuccessUrl("/")
+				.permitAll()
 				.and()
 				.logout()
+				.logoutSuccessUrl("/")
 				.and()
-				.csrf().disable();
+				.csrf().disable()
+		;
 	}
 }
