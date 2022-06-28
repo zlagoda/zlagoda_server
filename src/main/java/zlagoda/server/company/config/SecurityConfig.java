@@ -30,13 +30,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
 	protected void configure(final HttpSecurity httpSecurity) throws Exception
 	{
 		httpSecurity
-				.authorizeRequests()
+				.authorizeRequests().anyRequest().authenticated()
 				.and()
-				.formLogin()
-				.permitAll()
+				.httpBasic()
 				.and()
 				.logout()
-				.logoutSuccessUrl("/")
 				.and()
 				.csrf().disable()
 		;
