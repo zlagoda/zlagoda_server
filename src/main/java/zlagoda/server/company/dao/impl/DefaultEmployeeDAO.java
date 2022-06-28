@@ -36,6 +36,9 @@ public class DefaultEmployeeDAO implements EmployeeDAO
 	private static final String ZIP_CODE = "zip_code";
 
 	private static final String FIND_BY_NAME = "SELECT * FROM `Employee` WHERE empl_name = :empl_name ";
+	private static final String FIND_BY_ID = "SELECT * FROM `Employee` WHERE id_employee = :id_employee ";
+	private static final String FIND_ALL_EMPLOYEES = "SELECT * FROM `Employee` ";
+
 	@Override
 	public Optional<Employee> findByName(final String name)
 	{
@@ -43,6 +46,23 @@ public class DefaultEmployeeDAO implements EmployeeDAO
 		Map<String , Object> parameter = new HashMap<>();
 		parameter.put(NAME , name);
 		List<Employee> employees = namedParameterJdbcTemplate.query(FIND_BY_NAME , parameter , mapper);
+		return employees.stream().findFirst();
+	}
+
+	@Override
+	public List<Employee> findAllEmployees()
+	{
+		RowMapper<Employee> mapper = new DefaultEmployeeRowMapper();
+		return namedParameterJdbcTemplate.query(FIND_ALL_EMPLOYEES , mapper);
+	}
+
+	@Override
+	public Optional<Employee> findById(final String employeeId)
+	{
+		RowMapper<Employee> mapper = new DefaultEmployeeRowMapper();
+		Map<String , Object> parameter = new HashMap<>();
+		parameter.put(ID_EMPLOYEE , employeeId);
+		List<Employee> employees = namedParameterJdbcTemplate.query(FIND_BY_ID , parameter , mapper);
 		return employees.stream().findFirst();
 	}
 }

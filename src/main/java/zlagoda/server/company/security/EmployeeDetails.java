@@ -1,8 +1,11 @@
 package zlagoda.server.company.security;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import zlagoda.server.company.entity.Employee;
@@ -10,6 +13,7 @@ import zlagoda.server.company.entity.Employee;
 
 public class EmployeeDetails implements UserDetails
 {
+	String ROLE_PREFIX = "ROLE_";
 	private final Employee employee;
 
 	public EmployeeDetails(final Employee employee)
@@ -20,7 +24,9 @@ public class EmployeeDetails implements UserDetails
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities()
 	{
-		return null;
+		List<GrantedAuthority> list = new ArrayList<GrantedAuthority>();
+		list.add(new SimpleGrantedAuthority(ROLE_PREFIX + employee.getRole().name()));
+		return list;
 	}
 
 	@Override
@@ -57,5 +63,10 @@ public class EmployeeDetails implements UserDetails
 	public boolean isEnabled()
 	{
 		return true;
+	}
+
+	public Employee getEmployee()
+	{
+		return employee;
 	}
 }

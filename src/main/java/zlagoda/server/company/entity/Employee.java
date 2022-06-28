@@ -3,6 +3,8 @@ package zlagoda.server.company.entity;
 import java.math.BigDecimal;
 import java.sql.Date;
 
+import org.hibernate.validator.constraints.Length;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
