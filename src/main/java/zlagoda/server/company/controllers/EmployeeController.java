@@ -57,7 +57,7 @@ public class EmployeeController
 			model.addAttribute("invalidPhone" , "Phone's length is greater than 13 .");
 			return "singleEmployee";
 		}
-		return "redirect:/success";
+		return "redirect:/employees";
 	}
 
 	@ExceptionHandler(NoSuchElementException.class)

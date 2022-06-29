@@ -46,7 +46,7 @@
                 <br>
                 <br>
                 <label>Phone : </label>
-                <form:input path="phoneNumber" type="number" name="phoneNumber"  value="${employee.phoneNumber}" />
+                <form:input path="phoneNumber" type="tel" name="phoneNumber"  value="${employee.phoneNumber}" />
                 <c:if test="${not empty invalidPhone}"><label style="background: #ff704d;border-radius: 5px">${invalidPhone}</label></c:if>
                 <form:errors type="number" name="phoneNumber" cssStyle="background: #ff704d;border-radius: 5px"/>
                 <br>
