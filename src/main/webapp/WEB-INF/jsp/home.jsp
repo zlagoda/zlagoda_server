@@ -2,13 +2,12 @@
 <%@ taglib prefix="template" tagdir="/WEB-INF/tags" %>
 
 <template:page pageTitle="Home">
-    <sec:authorize access="isAuthenticated()">
-        <div class="greeting">
-            <h1>Hello ,
-                <sec:authentication property="principal.employee.name"/>
-            </h1>
-        </div>
-    </sec:authorize>
-    <h1 class="center title">Welcome to Zlagoda!</h1>
+  <div class="view-container view-container_flex_center">
+    <div class="home-login home-login_flex_center">
+      <h1 class="home-login__welcome">Welcome to ZLAGODA</h1>
+      <sec:authorize access="!isAuthenticated()">
+        <a class="home-login__button" href="/login">Log In</a>
+      </sec:authorize>
+    </div>
+  </div>
 </template:page>
-
