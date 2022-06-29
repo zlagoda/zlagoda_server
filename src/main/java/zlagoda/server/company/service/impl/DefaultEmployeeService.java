@@ -26,4 +26,9 @@ public class DefaultEmployeeService implements EmployeeService
 	{
 		return employeeDAO.findById(employeeId).orElseThrow();
 	}
+
+	@Override
+	public void updateEmployeeById(String employeeId, Employee employee) {
+		employeeDAO.updateById(employeeId, employee);
+	}
 }
