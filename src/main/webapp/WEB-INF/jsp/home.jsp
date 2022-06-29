@@ -3,10 +3,10 @@
 
 <template:page pageTitle="Home">
   <div class="view-container view-container_flex_center">
-    <div class="home-login home-login_flex_center">
-      <h1 class="home-login__welcome">Welcome to ZLAGODA</h1>
+    <div class="home-welcome home-welcome_flex_center">
+      <h1 class="home-welcome__welcome">Welcome to ZLAGODA</h1>
       <sec:authorize access="!isAuthenticated()">
-        <a class="home-login__button" href="/login">Log In</a>
+        <a class="button" href="/login">Log In</a>
       </sec:authorize>
     </div>
   </div>
