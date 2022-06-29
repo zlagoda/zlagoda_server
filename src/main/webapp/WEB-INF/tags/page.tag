@@ -6,7 +6,11 @@
 <template:master pageTitle="${pageTitle}">
     <sec:authorize access="isAuthenticated()">
         <template:sidebar/>
+        <div class="main-view">
     </sec:authorize>
-    <jsp:doBody/>
+        <jsp:doBody/>
+    <sec:authorize access="isAuthenticated()">
+        </div>
+    </sec:authorize>
 </template:master>
 

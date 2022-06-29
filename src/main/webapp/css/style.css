@@ -139,6 +139,65 @@
   font-weight: 600;
 }
 
+.sidebar {
+  height: 100%;
+  width: 250px;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #92D5E6;
+  overflow-x: hidden;
+}
+
+.sidebar_flex {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.sidebar__item {
+  text-decoration: none;
+  font-size: 25px;
+  color: #141414;
+  display: block;
+}
+
+.sidebar__item:hover {
+  color: #11405E;
+}
+
+.sidebar__logout {
+
+}
+
+.main-view {
+  margin-left: 250px; /* Same as the width of the sidebar */
+  padding: 0px 10px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 .container {
   text-align: center;
   background: aliceblue;
