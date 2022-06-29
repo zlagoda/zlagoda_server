@@ -1,22 +1,40 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%@ taglib prefix="template" tagdir="/WEB-INF/tags" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %> <%@ taglib
+prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> <%@ taglib prefix="fn"
+uri="http://java.sun.com/jsp/jstl/functions" %> <%@ taglib prefix="form"
+uri="http://www.springframework.org/tags/form" %> <%@ taglib prefix="template"
+tagdir="/WEB-INF/tags" %>
 
 <template:page pageTitle="Employees">
-    <div class="links-style , product-container">
-        <c:forEach items="${employees}" var="employee">
-            <div class="employee">
-                <h2>${employee.name} ${employee.role}</h2>
-                <a style="text-decoration: none ; background:  #c3d5d5; border-radius: 3px" href="/employee/${employee.id}">Edit/Add Info</a>
-            </div>
-        </c:forEach>
-
-        <c:if test="${empty employees}"><p>Seems like there are no employee records.</p></c:if>
-
-        <a style="display: block;" href="/">
-            <button class="go-back">Go back</button>
-        </a>
-    </div>
+  <div>
+    <table class="table">
+      <tr class="table__row table__row_header">
+        <th class="table__cell table__cell_header">Name</th>
+        <th class="table__cell table__cell_header">Phone number</th>
+        <th class="table__cell table__cell_header">Role</th>
+        <th class="table__cell table__cell_header">Salary</th>
+        <th class="table__cell table__cell_header">Birthdate</th>
+        <th class="table__cell table__cell_header">Start date</th>
+        <th class="table__cell table__cell_header">Address</th>
+        <th class="table__cell table__cell_header"></th>
+      </tr>
+    <c:forEach items="${employees}" var="employee">
+<tr class="table__row">
+      <tr>
+        <td class="table__cell">${employee.surname} ${employee.name} ${employee.patronymic}</td>
+        <td class="table__cell">${employee.phoneNumber}</td>
+        <td class="table__cell">${employee.role}</td>
+        <td class="table__cell">${employee.salary}</td>
+        <td class="table__cell">${employee.birthdate}</td>
+        <td class="table__cell">${employee.startDate}</td>
+        <td class="table__cell">${employee.city}, ${employee.street}, ${employee.zipCode}</td>
+        <td class="table__cell">
+            <a href="/employee/${employee.id}">Edit</a>
+        </td>
+      </tr>
+    </c:forEach>
+    </table>
+    <c:if test="${empty employees}">
+        <p>Seems like there are no employee records.</p>
+    </c:if>
+  </div>
 </template:page>

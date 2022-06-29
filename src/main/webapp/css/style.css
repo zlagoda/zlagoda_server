@@ -146,7 +146,7 @@
   z-index: 1;
   top: 0;
   left: 0;
-  background-color: #92D5E6;
+  background-color: #11405E;
   overflow-x: hidden;
 }
 
@@ -159,44 +159,42 @@
 .sidebar__item {
   text-decoration: none;
   font-size: 25px;
-  color: #141414;
+  color: #E8F1F2;
   display: block;
 }
 
 .sidebar__item:hover {
-  color: #11405E;
+  color: #A4C8CC;
 }
 
 .sidebar__logout {
-
 }
 
 .main-view {
   margin-left: 250px; /* Same as the width of the sidebar */
-  padding: 0px 10px;
 }
 
+.table {
+  border-collapse: collapse;
+  width: 100%;
+}
 
+.table__cell {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
 
+.table__cell_header {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #0E6BA8;
+  color: white;
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+.table__row:nth-child(even) {
+  background-color: #f2f2f2;
+}
 
 .container {
   text-align: center;
