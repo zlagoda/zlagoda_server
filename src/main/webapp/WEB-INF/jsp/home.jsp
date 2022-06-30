@@ -6,6 +6,7 @@
     <div class="home-welcome home-welcome_flex_center">
       <h1 class="home-welcome__welcome">Welcome to ZLAGODA</h1>
       <sec:authorize access="!isAuthenticated()">
+        <script>location.href = '/login'</script>
         <a class="button" href="/login">Log In</a>
       </sec:authorize>
     </div>

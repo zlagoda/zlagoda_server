@@ -7,6 +7,7 @@ import java.util.NoSuchElementException;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.UncategorizedSQLException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import zlagoda.server.company.entity.Employee;
 import zlagoda.server.company.service.EmployeeService;
@@ -56,9 +58,9 @@ public class EmployeeController {
 		return "redirect:/employees";
 	}
 
-	@ExceptionHandler(SQLException.class)
+	@ExceptionHandler(UncategorizedSQLException.class)
 	public String databaseError() {
-		return "redirect:/";
+		return "redirect:/employees";
 	}
 
 	@ExceptionHandler(NoSuchElementException.class)
