@@ -15,4 +15,8 @@ public interface EmployeeDAO
 	Optional<Employee> findById(final String employeeId);
 
 	void updateById(final String employeeId, final Employee employee);
+
+	void saveEmployee(final String employeeId , final Employee employee);
+
+	void deleteEmployee(final String employeeId);
 }

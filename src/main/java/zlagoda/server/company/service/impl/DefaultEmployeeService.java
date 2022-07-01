@@ -31,4 +31,16 @@ public class DefaultEmployeeService implements EmployeeService
 	public void updateEmployeeById(String employeeId, Employee employee) {
 		employeeDAO.updateById(employeeId, employee);
 	}
+
+	@Override
+	public void registerEmployee(final Employee employee)
+	{
+		employeeDAO.saveEmployee(employee.getId(),  employee);
+	}
+
+	@Override
+	public void deleteEmployee(final String employeeId)
+	{
+		employeeDAO.deleteEmployee(employeeId);
+	}
 }
