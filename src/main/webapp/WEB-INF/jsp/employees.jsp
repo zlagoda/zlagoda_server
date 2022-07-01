@@ -16,8 +16,8 @@ tagdir="/WEB-INF/tags" %>
         <th class="table__cell table__cell_header">Birthdate</th>
         <th class="table__cell table__cell_header">Start date</th>
         <th class="table__cell table__cell_header">Address</th>
-        <th class="table__cell table__cell_header hidden-print"></th>
-        <th class="table__cell table__cell_header hidden-print"></th>
+        <th class="table__cell table__cell_header table__cell-button hidden-print"></th>
+        <th class="table__cell table__cell_header table__cell-button hidden-print"></th>
       </tr>
     <c:forEach items="${employees}" var="employee">
 <tr class="table__row">
@@ -29,10 +29,10 @@ tagdir="/WEB-INF/tags" %>
         <td class="table__cell">${employee.birthdate}</td>
         <td class="table__cell">${employee.startDate}</td>
         <td class="table__cell">${employee.city}, ${employee.street}, ${employee.zipCode}</td>
-        <td class="table__cell hidden-print">
+        <td class="table__cell table__cell-button hidden-print">
             <a href="/employee/${employee.id}">Edit</a>
         </td>
-        <td class="table__cell hidden-print">
+        <td class="table__cell table__cell-button hidden-print">
             <a href="/" onclick="return confirm('Are you sure?')">Delete</a>
         </td>
       </tr>

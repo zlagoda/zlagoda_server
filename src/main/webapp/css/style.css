@@ -196,6 +196,11 @@
   color: white;
 }
 
+.table__cell-button {
+  width: 1%;
+  white-space: nowrap;
+}
+
 .table__row:nth-child(even) {
   background-color: #f2f2f2;
 }
