@@ -12,4 +12,8 @@ public interface EmployeeService
 	Employee getEmployeeById(final String employeeId);
 
 	void updateEmployeeById(final String employeeId, Employee employee);
+
+	void registerEmployee(final Employee employee);
+
+	void deleteEmployee(final String employeeId);
 }

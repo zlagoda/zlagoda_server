@@ -14,15 +14,19 @@
 
                 <input type="text" name="id" hidden value="${employee.id}"/>
                 <label>name : </label>
-                <input type="text" name="name" value="${employee.name}"/>
+                <input type="text" name="name" value="${employee.name}" required/>
                 <br>
                 <br>
                 <label>surname : </label>
-                <input type="text" name="surname" value="${employee.surname}"/>
+                <input type="text" name="surname" value="${employee.surname}" required/>
                 <br>
                 <br>
                 <label>patronymic : </label>
-                <input type="text" name="patronymic" value="${employee.patronymic}"/>
+                <input type="text" name="patronymic" value="${employee.patronymic}" required/>
+                <br>
+                <br>
+                <label>password : </label>
+                <input type="text" name="password" required/>
                 <br>
                 <br>
                 <label>role : </label>
@@ -34,15 +38,15 @@
                 <br>
                 <br>
                 <label>Birth date : </label>
-                <input type="date" name="birthdate" value="${employee.birthdate}"/>
+                <form:input path="birthdate" type="text" name="birthdate" value="${employee.birthdate}" required="true"/>
                 <br>
                 <br>
                 <label>Start date : </label>
-                <input type="date" name="startDate" value="${employee.startDate}"/>
+                <form:input path="startDate" type="text" name="startDate" value="${employee.startDate}" required="true"/>
                 <br>
                 <br>
                 <label>Salary : </label>
-                <input type="number" name="salary" value="${employee.salary}"/>
+                <input type="number" name="salary" value="${employee.salary}" required/>
                 <br>
                 <br>
                 <label>Phone : </label>
@@ -52,15 +56,15 @@
                 <br>
                 <br>
                 <label>Street : </label>
-                <input type="text" name="street" value="${employee.street}"/>
+                <input type="text" name="street" value="${employee.street}" required/>
                 <br>
                 <br>
                 <label>City : </label>
-                <input type="text" name="city" value="${employee.city}"/>
+                <input type="text" name="city" value="${employee.city}" required/>
                 <br>
                 <br>
                 <label>Zip-code : </label>
-                <input type="text" name="zipCode" value="${employee.zipCode}"/>
+                <input type="text" name="zipCode" value="${employee.zipCode}" required/>
                 <button class="add-button" type="submit"> Edit </button>
 
             </form:form>
