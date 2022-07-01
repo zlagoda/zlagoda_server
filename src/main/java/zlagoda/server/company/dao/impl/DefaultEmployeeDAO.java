@@ -37,7 +37,7 @@ public class DefaultEmployeeDAO implements EmployeeDAO {
 
 	private static final String FIND_BY_NAME = "SELECT * FROM `Employee` WHERE empl_name = :empl_name ";
 	private static final String FIND_BY_ID = "SELECT * FROM `Employee` WHERE id_employee = :id_employee ";
-	private static final String FIND_ALL_EMPLOYEES = "SELECT * FROM `Employee` ";
+	private static final String FIND_ALL_EMPLOYEES = "SELECT * FROM `Employee` ORDER BY empl_surname";
 	private static final String UPDATE_BY_ID = "UPDATE Employee\n"
 			+ "SET empl_surname = :empl_surname,\n"
 			+ "empl_name = :empl_name,\n"
