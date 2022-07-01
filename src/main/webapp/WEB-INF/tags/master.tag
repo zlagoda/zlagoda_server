@@ -4,9 +4,8 @@
 
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="" href="../../css/style.css">
-    <link rel="stylesheet" href="../../css/print.css" media="print" />
-    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="../../../css/print.css" media="print" />
+    <link rel="stylesheet" href="../../../css/style.css">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <script src="../../scripts/script.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>

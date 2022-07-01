@@ -24,7 +24,7 @@ public class CustomerDetailsService implements UserDetailsService
 	@Override
 	public UserDetails loadUserByUsername(final String username) throws UsernameNotFoundException
 	{
-		final Optional<Employee> employeeOptional = employeeDAO.findByName(username);
+		final Optional<Employee> employeeOptional = employeeDAO.findById(username);
 		final Employee employee = employeeOptional.orElseThrow(
 				() -> new UsernameNotFoundException(USER_NOT_FOUND_MSG + username));
 		return new EmployeeDetails(employee);

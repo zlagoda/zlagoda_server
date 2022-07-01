@@ -50,5 +50,4 @@
     <a href="employee/add">
         <button class="hidden-print">Add</button>
     </a>
-
 </template:page>

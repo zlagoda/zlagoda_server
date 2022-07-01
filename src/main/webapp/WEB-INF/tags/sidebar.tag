@@ -8,6 +8,7 @@
     <a class="sidebar__item" href="/products">Products</a>
     <sec:authorize access="hasRole('MANAGER')">
       <a class="sidebar__item" href="/employees">Employees</a>
+      <a class="sidebar__item" href="/manager/categories">Categories</a>
     </sec:authorize>
     <a class="sidebar__item" href="/customers">Customers</a>
     <a class="sidebar__item" href="/check">Checks</a>
