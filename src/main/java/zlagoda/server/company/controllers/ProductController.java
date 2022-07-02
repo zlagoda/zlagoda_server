@@ -26,7 +26,7 @@ public class ProductController {
     private CategoryService categoryService;
 
     @GetMapping("/products")
-    public String categories(Model model) {
+    public String products(Model model) {
         List<Product> products = productService.getAllProducts();
         model.addAttribute("products", products);
         return "product/products";

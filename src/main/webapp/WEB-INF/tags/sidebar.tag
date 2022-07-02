@@ -6,6 +6,7 @@
   <div>
     <a class="sidebar__item" href="/">Home</a>
     <a class="sidebar__item" href="/products">Products</a>
+    <a class="sidebar__item" href="/products-in-store">Products in store</a>
     <sec:authorize access="hasRole('MANAGER')">
       <a class="sidebar__item" href="/employees">Employees</a>
       <a class="sidebar__item" href="/manager/categories">Categories</a>
