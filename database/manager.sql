@@ -312,3 +312,75 @@ FROM Store_Product
     INNER JOIN Category ON Product.category_number = Category.category_number
 WHERE Store_Product.promotional_product = 0
 ORDER BY Store_Product.products_number;
+
+
+-- 17. Отримати інформацію про усі чеки, створені певним касиром за певний період
+-- часу (з можливістю перегляду куплених товарів у цьому чеку, їх назви, к-сті та ціни);
+SELECT
+    `Check`.`card_number`,
+    `Check`.`check_number`,
+    `Check`.`id_employee`,
+    `Check`.`print_date`,
+    `Check`.`sum_total`,
+    `Check`.`vat`,
+    Sale.UPC,
+    Sale.product_nubmer,
+    Product.product_name,
+    Sale.selling_price
+FROM
+    `Check`
+        INNER JOIN Employee ON Employee.id_employee = `Check`.id_employee
+        INNER JOIN Sale ON Sale.check_number = `Check`.`check_number`
+        INNER JOIN Store_Product ON Store_Product.UPC = Sale.UPC
+        INNER JOIN Product ON Product.id_product = Store_Product.id_product
+WHERE
+        `Check`.id_employee = '2' AND Employee.role = 'cashier' AND `Check`.print_date >= '2022-05-29'
+
+-- 18. Отримати інформацію про усі чеки, створені усіма касирами за певний період
+-- часу (з можливістю перегляду куплених товарів у цьому чеку, їх назва, к-сті та ціни);
+SELECT
+    `Check`.`card_number`,
+    `Check`.`check_number`,
+    `Check`.`id_employee`,
+    `Check`.`print_date`,
+    `Check`.`sum_total`,
+    `Check`.`vat`,
+    Sale.UPC,
+    Sale.product_nubmer,
+    Product.product_name,
+    Sale.selling_price
+FROM
+    `Check`
+        INNER JOIN Employee ON Employee.id_employee = `Check`.id_employee
+        INNER JOIN Sale ON Sale.check_number = `Check`.`check_number`
+        INNER JOIN Store_Product ON Store_Product.UPC = Sale.UPC
+        INNER JOIN Product ON Product.id_product = Store_Product.id_product
+WHERE
+        Employee.role LIKE 'cashier' AND `Check`.print_date >= '2022-07-29'
+
+-- 19. Визначити загальну суму проданих товарів з чеків, створених певним касиром за
+-- певний період часу;
+SELECT SUM(`Check`.`sum_total`)
+FROM `Check`
+         INNER JOIN Employee ON Employee.id_employee = `Check`.id_employee
+         INNER JOIN Sale ON Sale.check_number = `Check`.`check_number`
+
+WHERE `Check`.id_employee = '2' AND Employee.role = 'cashier' AND `Check`.`print_date` >= '2022-05-29'
+
+-- 20. Визначити загальну суму проданих товарів з чеків, створених усіма касиром за
+-- певний період часу;
+SELECT SUM(`Check`.`sum_total`)
+FROM `Check`
+         INNER JOIN Sale ON Sale.check_number = `Check`.`check_number`
+WHERE Employee.role LIKE 'cashier' AND `Check`.`print_date` >= '2022-05-29'
+
+-- 21. Визначити загальну кількість одиниць певного товару, проданого за певний
+-- період часу.
+
+SELECT SUM(Sale.product_nubmer)
+
+FROM Sale
+         INNER JOIN Store_Product ON Store_Product.UPC = Sale.UPC
+         INNER JOIN `Check` ON `Check`.`check_number` = Sale.check_number
+         INNER JOIN Product ON Product.id_product = Store_Product.id_product
+WHERE Product.product_name LIKE 'bread' AND`Check`.`print_date` >= '2022-01-29'
