@@ -48,17 +48,16 @@ public class EmployeeController
 		return "editEmployee";
 	}
 
-	@PostMapping("/employee/edit")
-	public String employeeEdit(@Valid @ModelAttribute("employee") Employee employee, BindingResult result, Model model)
+	@PostMapping("/edit/{employeeId}")
+	public String employeeEdit(@ModelAttribute("employee") Employee employee, BindingResult result, Model model)
 	{
 		employeeValidator.validate(employee, result);
 		if (result.hasErrors())
 		{
 			model.addAttribute("roles", Employee.Role.values());
-			model.addAttribute("invalidPhone", "Invalid phone number");
 			return "editEmployee";
 		}
-		employeeService.updateEmployeeById(employee.getId(), employee);
+		employeeService.updateEmployeeById(employee);
 		return "redirect:/employees";
 	}
 
@@ -71,13 +70,13 @@ public class EmployeeController
 	}
 
 	@PostMapping("employee/add")
-	public String employeeAddPost(@Valid @ModelAttribute("employee") Employee employee , BindingResult result , Model model)
+	public String employeeAddPost(@Valid @ModelAttribute("employee") Employee employee, BindingResult result,
+			Model model)
 	{
 		employeeValidator.validate(employee, result);
 		if (result.hasErrors())
 		{
 			model.addAttribute("roles", Employee.Role.values());
-			model.addAttribute("invalidPhone", "Invalid phone number");
 			return "addEmployee";
 		}
 		employeeService.registerEmployee(employee);
@@ -91,11 +90,10 @@ public class EmployeeController
 		return "redirect:/employees";
 	}
 
-
 	@ExceptionHandler(SQLException.class)
 	public String databaseError(Model model)
 	{
-		model.addAttribute("dataBaseError" , "Unknown error was detected while working with database.");
+		model.addAttribute("dataBaseError", "Unknown error was detected while working with database.");
 		return "redirect:/employees";
 	}
 

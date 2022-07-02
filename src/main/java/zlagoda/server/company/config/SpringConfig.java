@@ -24,4 +24,21 @@ public class SpringConfig
 	{
 		return new BCryptPasswordEncoder();
 	}
+
+	@Bean
+	public MessageSource messageSource()
+	{
+		final ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
+		messageSource.setBasename("classpath:messages");
+		messageSource.setDefaultEncoding("UTF-8");
+		return messageSource;
+	}
+
+	@Bean
+	public LocaleResolver localeResolver()
+	{
+		final SessionLocaleResolver slr = new SessionLocaleResolver();
+		slr.setDefaultLocale(Locale.US);
+		return slr;
+	}
 }

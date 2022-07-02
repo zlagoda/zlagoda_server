@@ -10,23 +10,23 @@
                 <button class="go-back">Go back</button>
             </a>
 
-            <form:form modelAttribute="employee" action="/employee/edit" method="post">
+            <form:form modelAttribute="employee" action="/edit/${employee.id}" method="post">
 
                 <input type="text" name="id" hidden value="${employee.id}"/>
                 <label>name : </label>
-                <input type="text" name="name" value="${employee.name}" required/>
+                <input type="text" name="name" value="${employee.name}"/>
                 <br>
                 <br>
                 <label>surname : </label>
-                <input type="text" name="surname" value="${employee.surname}" required/>
+                <input type="text" name="surname" value="${employee.surname}"/>
                 <br>
                 <br>
                 <label>patronymic : </label>
-                <input type="text" name="patronymic" value="${employee.patronymic}" required/>
+                <input type="text" name="patronymic" value="${employee.patronymic}"/>
                 <br>
                 <br>
                 <label>password : </label>
-                <input type="text" name="password" required/>
+                <input type="text" name="password"/>
                 <br>
                 <br>
                 <label>role : </label>
@@ -38,33 +38,35 @@
                 <br>
                 <br>
                 <label>Birth date : </label>
-                <form:input path="birthdate" type="text" name="birthdate" value="${employee.birthdate}" required="true"/>
+                <form:input path="birthdate" type="date" name="birthdate" value="${employee.birthdate}"/>
+                <form:errors path="birthdate" type="date" name="birthdate" cssStyle="background: #ff704d;border-radius: 5px"/>
                 <br>
                 <br>
                 <label>Start date : </label>
-                <form:input path="startDate" type="text" name="startDate" value="${employee.startDate}" required="true"/>
+                <form:input path="startDate" type="date" name="startDate" value="${employee.startDate}"/>
+                <form:errors path="startDate" type="date" name="startDate" cssStyle="background: #ff704d;border-radius: 5px"/>
                 <br>
                 <br>
                 <label>Salary : </label>
-                <input type="number" name="salary" value="${employee.salary}" required/>
+                <input type="number" name="salary" value="${employee.salary}"/>
                 <br>
                 <br>
                 <label>Phone : </label>
                 <form:input path="phoneNumber" type="tel" name="phoneNumber"  value="${employee.phoneNumber}" />
-                <c:if test="${not empty invalidPhone}"><label style="background: #ff704d;border-radius: 5px">${invalidPhone}</label></c:if>
-                <form:errors type="number" name="phoneNumber" cssStyle="background: #ff704d;border-radius: 5px"/>
+                <form:errors path="phoneNumber" type="number" name="phoneNumber" cssStyle="background: #ff704d;border-radius: 5px"/>
                 <br>
                 <br>
                 <label>Street : </label>
-                <input type="text" name="street" value="${employee.street}" required/>
+                <input type="text" name="street" value="${employee.street}"/>
                 <br>
                 <br>
                 <label>City : </label>
-                <input type="text" name="city" value="${employee.city}" required/>
+                <input type="text" name="city" value="${employee.city}"/>
                 <br>
                 <br>
                 <label>Zip-code : </label>
-                <input type="text" name="zipCode" value="${employee.zipCode}" required/>
+                <form:input path="zipCode" type="text" name="zipCode" value="${employee.zipCode}"/>
+                <form:errors path="zipCode" type="text" name="zipCode" cssStyle="background: #ff704d;border-radius: 5px"/>
                 <button class="add-button" type="submit"> Edit </button>
 
             </form:form>
