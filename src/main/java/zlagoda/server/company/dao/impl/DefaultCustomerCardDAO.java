@@ -1,5 +1,6 @@
 package zlagoda.server.company.dao.impl;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -19,7 +20,38 @@ public class DefaultCustomerCardDAO implements CustomerCardDAO
 	@Autowired
 	private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
+	private static final String CARD_NUMBER = "card_number";
+	private static final String CUSTOMER_SURNAME = "cust_surname";
+	private static final String CUSTOMER_NAME = "cust_name";
+	private static final String CUSTOMER_PATRONYMIC = "cust_patronymic";
+	private static final String PHONE_NUMBER = "phone_number";
+	private static final String CITY = "city";
+	private static final String STREET = "street";
+	private static final String ZIP_CODE = "zip_code";
+	private static final String PERCENT = "percent";
+
 	private static final String SELECT_ALL_CUSTOMERS = "SELECT * FROM Customer_Card;";
+	private static final String INSERT_NEW_CUSTOMER_CARD = "INSERT INTO Customer_Card "
+			+ "(card_number ,cust_surname,cust_name,cust_patronymic, phone_number, city,street, zip_code,percent)"
+			+ "VALUES ( :card_number , :cust_surname ,:cust_name, :cust_patronymic, :phone_number, "
+			+ ":city , :street , :zip_code , :percent)";
+
+	private static final String DELETE_CUSTOMER_CARD = "DELETE FROM Customer_Card "
+			+ "WHERE card_number = :card_number ";
+	private static final String SELECT_BY_NUMBER = "SELECT * "
+			+ "FROM Customer_Card "
+			+ "WHERE card_number = :card_number ";
+
+	private static final String UPDATE_BY_NUMBER = "UPDATE Customer_Card "
+			+ "SET cust_surname = :cust_surname ,"
+			+ "    cust_name = :cust_name , "
+			+ "    cust_patronymic = :cust_patronymic,"
+			+ "    phone_number = :phone_number ,"
+			+ "    city = :city,"
+			+ "    street = :street, "
+			+ "    zip_code = :zip_code ,"
+			+ "    percent = :percent "
+			+ "WHERE card_number = :card_number;";
 
 	@Override
 	public List<CustomerCard> findAllCustomers()
@@ -29,26 +61,52 @@ public class DefaultCustomerCardDAO implements CustomerCardDAO
 	}
 
 	@Override
-	public Optional<CustomerCard> findById(final String customerId)
+	public Optional<CustomerCard> findByNumber(final String cardNumber)
 	{
-		return Optional.empty();
+		RowMapper<CustomerCard> mapper = new DefaultCustomerCardRowMapper();
+		Map<String  , Object> parameter = new HashMap<>();
+		parameter.put(CARD_NUMBER , cardNumber);
+		List<CustomerCard> cards = namedParameterJdbcTemplate.query(SELECT_BY_NUMBER , parameter , mapper);
+		return cards.stream().findFirst();
 	}
 
 	@Override
-	public void updateById(final String customerId, final CustomerCard customerCard)
+	public void updateByNumber(final CustomerCard customerCard)
 	{
-
+		Map<String  , Object> parameters = new HashMap<>();
+		parameters.put(CARD_NUMBER , customerCard.getNumber());
+		parameters.put(CUSTOMER_NAME , customerCard.getName());
+		parameters.put(CUSTOMER_SURNAME , customerCard.getSurname());
+		parameters.put(CUSTOMER_PATRONYMIC , customerCard.getPatronymic());
+		parameters.put(PHONE_NUMBER , customerCard.getPhoneNumber());
+		parameters.put(CITY , customerCard.getCity());
+		parameters.put(STREET , customerCard.getStreet());
+		parameters.put(ZIP_CODE , customerCard.getZipCode());
+		parameters.put(PERCENT , customerCard.getPercent());
+		namedParameterJdbcTemplate.update(UPDATE_BY_NUMBER , parameters);
 	}
 
 	@Override
-	public void saveCustomer(final String customerId, final CustomerCard customerCard)
+	public void saveCustomer(final CustomerCard customerCard)
 	{
-
+		Map<String  , Object> parameters = new HashMap<>();
+		parameters.put(CARD_NUMBER , customerCard.getNumber());
+		parameters.put(CUSTOMER_NAME , customerCard.getName());
+		parameters.put(CUSTOMER_SURNAME , customerCard.getSurname());
+		parameters.put(CUSTOMER_PATRONYMIC , customerCard.getPatronymic());
+		parameters.put(PHONE_NUMBER , customerCard.getPhoneNumber());
+		parameters.put(CITY , customerCard.getCity());
+		parameters.put(STREET , customerCard.getStreet());
+		parameters.put(ZIP_CODE , customerCard.getZipCode());
+		parameters.put(PERCENT , customerCard.getPercent());
+		namedParameterJdbcTemplate.update(INSERT_NEW_CUSTOMER_CARD , parameters);
 	}
 
 	@Override
-	public void deleteCustomer(final String customerId)
+	public void deleteCustomer(final String cardNumber)
 	{
-
+		Map<String  , Object> parameter = new HashMap<>();
+		parameter.put(CARD_NUMBER , cardNumber);
+		namedParameterJdbcTemplate.update(DELETE_CUSTOMER_CARD , parameter);
 	}
 }

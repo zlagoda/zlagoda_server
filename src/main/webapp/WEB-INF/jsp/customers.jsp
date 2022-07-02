@@ -30,20 +30,20 @@
                     <td class="table__cell">${customerCard.city}${customerCard.street}${customerCard.zipCode}</td>
                     <td class="table__cell">${customerCard.percent}</td>
                     <td class="table__cell hidden-print">
-                        <a href="/employee/${employee.id}">Edit</a>
+                        <a href="/customer/${customerCard.number}">Edit</a>
                     </td>
                     <td class="table__cell hidden-print">
-                        <a href="/delete/${employee.id}" onclick="return confirm('Are you sure?')">Delete</a>
+                        <a href="/customer/delete/${customerCard.number}" onclick="return confirm('Are you sure?')">Delete</a>
                     </td>
                 </tr>
             </c:forEach>
         </table>
-        <c:if test="${empty employees}">
+        <c:if test="${empty customerCards}">
             <p>Seems like there are no employee records.</p>
         </c:if>
     </div>
     <button class="hidden-print" onclick="print()">Print</button>
-    <a href="employee/add">
+    <a href="/customer/add">
         <button class="hidden-print">Add</button>
     </a>
 </template:page>

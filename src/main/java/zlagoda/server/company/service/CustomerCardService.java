@@ -10,11 +10,11 @@ public interface CustomerCardService
 {
 	List<CustomerCard> getAllCustomers();
 
-	CustomerCard getCustomerById(final String customerId);
+	CustomerCard getCustomerByNumber(final String cardNumber);
 
 	void updateCustomerById(CustomerCard customerCard);
 
 	void registerCustomer(final CustomerCard customerCard);
 
-	void deleteCustomer(final String customerId);
+	void deleteCustomer(final String cardNumber);
 }

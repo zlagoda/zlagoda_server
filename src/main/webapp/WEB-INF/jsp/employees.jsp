@@ -37,7 +37,7 @@
                         <a href="/employee/${employee.id}">Edit</a>
                     </td>
                     <td class="table__cell hidden-print">
-                        <a href="/delete/${employee.id}" onclick="return confirm('Are you sure?')">Delete</a>
+                        <a href="/employee/delete/${employee.id}" onclick="return confirm('Are you sure?')">Delete</a>
                     </td>
                 </tr>
             </c:forEach>

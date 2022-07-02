@@ -10,23 +10,27 @@
                 <button class="go-back">Go back</button>
             </a>
 
-            <form:form modelAttribute="employee" action="/edit/${employee.id}" method="post">
+            <form:form modelAttribute="employee" action="/employee/edit/${employee.id}" method="post">
 
                 <input type="text" name="id" hidden value="${employee.id}"/>
                 <label>name : </label>
                 <input type="text" name="name" value="${employee.name}"/>
+                <form:errors path="name" type="number" name="phoneNumber" cssStyle="background: #ff704d;border-radius: 5px"/>
                 <br>
                 <br>
                 <label>surname : </label>
                 <input type="text" name="surname" value="${employee.surname}"/>
+                <form:errors path="surname" type="number" name="phoneNumber" cssStyle="background: #ff704d;border-radius: 5px"/>
                 <br>
                 <br>
                 <label>patronymic : </label>
                 <input type="text" name="patronymic" value="${employee.patronymic}"/>
+                <form:errors path="patronymic" type="number" name="phoneNumber" cssStyle="background: #ff704d;border-radius: 5px"/>
                 <br>
                 <br>
                 <label>password : </label>
                 <input type="text" name="password"/>
+                <form:errors path="password" type="number" name="phoneNumber" cssStyle="background: #ff704d;border-radius: 5px"/>
                 <br>
                 <br>
                 <label>role : </label>
@@ -49,6 +53,7 @@
                 <br>
                 <label>Salary : </label>
                 <input type="number" name="salary" value="${employee.salary}"/>
+                <form:errors path="salary" type="number" name="phoneNumber" cssStyle="background: #ff704d;border-radius: 5px"/>
                 <br>
                 <br>
                 <label>Phone : </label>
@@ -58,10 +63,12 @@
                 <br>
                 <label>Street : </label>
                 <input type="text" name="street" value="${employee.street}"/>
+                <form:errors path="street" type="number" name="phoneNumber" cssStyle="background: #ff704d;border-radius: 5px"/>
                 <br>
                 <br>
                 <label>City : </label>
                 <input type="text" name="city" value="${employee.city}"/>
+                <form:errors path="city" type="number" name="phoneNumber" cssStyle="background: #ff704d;border-radius: 5px"/>
                 <br>
                 <br>
                 <label>Zip-code : </label>

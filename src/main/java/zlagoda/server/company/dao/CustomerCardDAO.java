@@ -11,11 +11,11 @@ public interface CustomerCardDAO
 {
 	List<CustomerCard> findAllCustomers();
 
-	Optional<CustomerCard> findById(final String customerId);
+	Optional<CustomerCard> findByNumber(final String cardNumber);
 
-	void updateById(final String customerId, final CustomerCard customerCard);
+	void updateByNumber(final CustomerCard customerCard);
 
-	void saveCustomer(final String customerId , final CustomerCard customerCard);
+	void saveCustomer(final CustomerCard customerCard);
 
-	void deleteCustomer(final String customerId);
+	void deleteCustomer(final String cardNumber);
 }
