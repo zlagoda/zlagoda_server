@@ -48,7 +48,7 @@ public class EmployeeController
 		return "editEmployee";
 	}
 
-	@PostMapping("/edit/{employeeId}")
+	@PostMapping("employee/edit/{employeeId}")
 	public String employeeEdit(@ModelAttribute("employee") Employee employee, BindingResult result, Model model)
 	{
 		employeeValidator.validate(employee, result);
@@ -83,7 +83,7 @@ public class EmployeeController
 		return "redirect:/employees";
 	}
 
-	@GetMapping("/delete/{employeeId}")
+	@GetMapping("employee/delete/{employeeId}")
 	public String employeeDelete(@PathVariable("employeeId") String employeeId)
 	{
 		employeeService.deleteEmployee(employeeId);

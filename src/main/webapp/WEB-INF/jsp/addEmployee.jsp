@@ -12,22 +12,27 @@
             <form:form modelAttribute="employee" action="/employee/add" method="post">
                 <label>Login : </label>
                 <input type="text" name="id"  value="${employee.id}" required/>
+                <form:errors path="id" type="number" name="phoneNumber" cssStyle="background: #ff704d;border-radius: 5px"/>
                 <br>
                 <br>
                 <label>name : </label>
-                <input type="text" name="name" value="${employee.name}"/>
+                <input type="text" name="name" value="${employee.name}" required/>
+                <form:errors path="name" type="number" name="phoneNumber" cssStyle="background: #ff704d;border-radius: 5px"/>
                 <br>
                 <br>
                 <label>surname : </label>
                 <input type="text" name="surname" value="${employee.surname}" required/>
+                <form:errors path="surname" type="number" name="phoneNumber" cssStyle="background: #ff704d;border-radius: 5px"/>
                 <br>
                 <br>
                 <label>password : </label>
                 <input type="text" name="password" value="${employee.password}" required/>
+                <form:errors path="password" type="number" name="phoneNumber" cssStyle="background: #ff704d;border-radius: 5px"/>
                 <br>
                 <br>
                 <label>patronymic : </label>
                 <input type="text" name="patronymic" value="${employee.patronymic}" required/>
+                <form:errors path="patronymic" type="number" name="phoneNumber" cssStyle="background: #ff704d;border-radius: 5px"/>
                 <br>
                 <br>
                 <label>role : </label>
@@ -48,6 +53,7 @@
                 <br>
                 <label>Salary : </label>
                 <input type="number" name="salary" value="${employee.salary}" required/>
+                <form:errors path="salary" type="number" name="phoneNumber" cssStyle="background: #ff704d;border-radius: 5px"/>
                 <br>
                 <br>
                 <label>Phone : </label>
@@ -57,10 +63,12 @@
                 <br>
                 <label>Street : </label>
                 <input type="text" name="street" value="${employee.street}" required/>
+                <form:errors path="street" type="number" name="phoneNumber" cssStyle="background: #ff704d;border-radius: 5px"/>
                 <br>
                 <br>
                 <label>City : </label>
                 <input type="text" name="city" value="${employee.city}" required/>
+                <form:errors path="city" type="number" name="phoneNumber" cssStyle="background: #ff704d;border-radius: 5px"/>
                 <br>
                 <br>
                 <label>Zip-code : </label>
