@@ -11,7 +11,7 @@
 
             <form:form modelAttribute="employee" action="/employee/add" method="post">
                 <label>Login : </label>
-                <input type="text" name="id"  value="${employee.id}"required/>
+                <input type="text" name="id"  value="${employee.id}" required/>
                 <br>
                 <br>
                 <label>name : </label>
@@ -39,11 +39,11 @@
                 <br>
                 <br>
                 <label>Birth date : </label>
-                <form:input path="birthdate" type="text" name="birthdate" value="${employee.birthdate}" required="true"/>
+                <form:input path="birthdate" type="date" name="birthdate" value="${employee.birthdate}" required="true"/>
                 <br>
                 <br>
                 <label>Start date : </label>
-                <form:input path="startDate" type="text" name="startDate" value="${employee.startDate}" required="true"/>
+                <form:input path="startDate" type="date" name="startDate" value="${employee.startDate}" required="true"/>
                 <br>
                 <br>
                 <label>Salary : </label>
@@ -52,7 +52,7 @@
                 <br>
                 <label>Phone : </label>
                 <form:input path="phoneNumber" type="tel" name="phoneNumber"  value="${employee.phoneNumber}" />
-                <c:if test="${not empty invalidPhone}"><label style="background: #ff704d;border-radius: 5px">${invalidPhone}</label></c:if>
+                <form:errors path="phoneNumber" type="number" name="phoneNumber" cssStyle="background: #ff704d;border-radius: 5px"/>
                 <br>
                 <br>
                 <label>Street : </label>
@@ -64,7 +64,8 @@
                 <br>
                 <br>
                 <label>Zip-code : </label>
-                <input type="text" name="zipCode" value="${employee.zipCode}" required/>
+                <form:input path="zipCode" type="text" name="zipCode" value="${employee.zipCode}" required="true" />
+                <form:errors path="zipCode" type="text" name="zipCode" cssStyle="background: #ff704d;border-radius: 5px"/>
                 <button class="add-button" type="submit"> Add </button>
 
             </form:form>

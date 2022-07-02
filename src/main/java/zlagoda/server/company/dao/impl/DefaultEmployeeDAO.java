@@ -99,7 +99,10 @@ public class DefaultEmployeeDAO implements EmployeeDAO
 	{
 		Map<String, Object> parameter = new HashMap<>();
 		parameter.put(ID_EMPLOYEE, employeeId);
-		parameter.put(SURNAME, employee.getSurname());
+		if (employee.getSurname() != null)
+		{
+			parameter.put(SURNAME, employee.getSurname());
+		}
 		parameter.put(NAME, employee.getName());
 		parameter.put(PATRONYMIC, employee.getPatronymic());
 		parameter.put(PASSWORD, passwordEncoder.encode(employee.getPassword()));
