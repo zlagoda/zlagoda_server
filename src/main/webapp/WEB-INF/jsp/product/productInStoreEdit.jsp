@@ -11,6 +11,7 @@ tagdir="/WEB-INF/tags" %>
   >
     <h1>${productInStore}</h1>
     <h1>${products}</h1>
+    <input type="text" name="id" hidden value="${productInStore.UPC}"/>
     <input type="text" name="UPC" value="${productInStore.UPC}"/>
     <select name="productId">
       <c:forEach items="${products}" var="product">
