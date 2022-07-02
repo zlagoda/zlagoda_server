@@ -61,8 +61,8 @@ public class DefaultProductInStoreDAO implements ProductInStoreDAO {
             "WHERE UPC = :UPC";
     private static final String UPDATE_AMOUNT_BY_UPC = "UPDATE `Store_Product` SET products_number = :products_number WHERE UPC = :UPC";
     private static final String DELETE_BY_UPC = "DELETE FROM `Store_Product` WHERE UPC = :UPC";
-    private static final String INSERT_NEW = "INSERT INTO `Store_Product` VALUES (" +
-            "UPC, UPC_prom, id_product, selling_price, products_number, promotional_product) VALUES (" +
+    private static final String INSERT_NEW = "INSERT INTO `Store_Product` ( " +
+            "UPC, UPC_prom, id_product, selling_price, products_number, promotional_product ) VALUES (" +
             ":UPC, :UPC_prom, :product_id, :selling_price, :products_number, :promotional_product" +
             ")";
     private static final String UPDATE_BY_UPC = "UPDATE `Store_Product`\n" +

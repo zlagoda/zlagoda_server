@@ -5,14 +5,15 @@ tagdir="/WEB-INF/tags" %>
 
 <template:page pageTitle="Edit Category">
   <form:form
-    modelAttribute="product"
+    modelAttribute="productInStore"
     action="/manager/products-in-store/edit"
     method="post"
   >
     <h1>${productInStore}</h1>
     <h1>${products}</h1>
     <input type="text" name="id" hidden value="${productInStore.UPC}"/>
-    <input type="text" name="UPC" value="${productInStore.UPC}"/>
+    <input type="text" name="UPC" hidden value="${productInStore.UPC}"/>
+    <input type="text" name="promotionalUPC" value="${productInStore.UPC}"/>
     <select name="productId">
       <c:forEach items="${products}" var="product">
       <c:choose>

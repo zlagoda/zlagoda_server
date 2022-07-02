@@ -49,7 +49,7 @@ public class ProductInStoreController {
     }
 
     @PostMapping("/manager/products-in-store/edit")
-    public String editProduct(@ModelAttribute("product") ProductInStoreDTO productDTO) {
+    public String editProduct(@ModelAttribute("productInStore") ProductInStoreDTO productDTO) {
         ProductInStore productInStore = new ProductInStore();
         productInStore.setUPC(productDTO.getUPC());
         productInStore.setPromotionalUPC(productDTO.getPromotionalUPC());
