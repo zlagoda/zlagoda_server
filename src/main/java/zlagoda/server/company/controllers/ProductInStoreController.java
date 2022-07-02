@@ -40,6 +40,7 @@ public class ProductInStoreController {
             product = productInStoreService.getByUPC(UPC);
         } else {
             product = new ProductInStore();
+            product.setUPC(UPC);
         }
         List<Product> products = productService.getAllProducts();
         model.addAttribute("productInStore", product);
@@ -58,8 +59,9 @@ public class ProductInStoreController {
         Product product = new Product();
         product.setId(productDTO.getProductId());
         productInStore.setProduct(product);
+        System.out.println(productDTO.toString());
         System.out.println(productInStore.toString());
-        if (!productDTO.getUPC().equals("0")) {
+        if (!productDTO.getId().equals("0")) {
             productInStoreService.updateByUPC(productDTO.getUPC(), productInStore);
         } else {
             productInStoreService.insertNew(productInStore);

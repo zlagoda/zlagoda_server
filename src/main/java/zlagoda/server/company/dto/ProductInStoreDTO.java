@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class ProductInStoreDTO {
+    private String id;
     private String UPC;
     private String promotionalUPC;
     private int productId;
