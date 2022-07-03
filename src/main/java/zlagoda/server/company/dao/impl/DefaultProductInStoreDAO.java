@@ -25,7 +25,7 @@ public class DefaultProductInStoreDAO implements ProductInStoreDAO {
     private static final String SELLING_PRICE = "selling_price";
     private static final String PRODUCTS_NUMBER = "products_number";
     private static final String PROMOTIONAL_PRODUCT = "promotional_product";
-    private static final String ID_PRODUCT = "product_id";
+    private static final String ID_PRODUCT = "id_product";
     private static final String PRODUCT_NAME = "product_name";
     private static final String CHARACTERISTICS = "characteristics";
     private static final String CATEGORY_ID = "category_id";
@@ -67,11 +67,12 @@ public class DefaultProductInStoreDAO implements ProductInStoreDAO {
             ")";
     private static final String UPDATE_BY_UPC = "UPDATE `Store_Product`\n" +
             "SET UPC_prom = :UPC_prom," +
-            "id_product = :product_id," +
+            "id_product = :id_product," +
             "selling_price = :selling_price," +
             "products_number = :products_number," +
             "promotional_product = :promotional_product\n" +
             "WHERE UPC = :UPC";
+	private static final String SELECT_PRODUCT_ID = "SELECT id_product FROM Store_Product WHERE id_product =:id_product ";
 
     @Override
     public List<ProductInStore> findAll() {
@@ -124,15 +125,15 @@ public class DefaultProductInStoreDAO implements ProductInStoreDAO {
     }
 
     @Override
-    public void updateByUPC(String UPC, ProductInStore productInStore) {
-        Map<String, Object> parameter = new HashMap<>();
-        parameter.put(UPC, productInStore.getUPC());
-        parameter.put(UPC_PROM, productInStore.getPromotionalUPC());
-        parameter.put(ID_PRODUCT, productInStore.getProduct().getId());
-        parameter.put(SELLING_PRICE, productInStore.getPrice());
-        parameter.put(PRODUCTS_NUMBER, productInStore.getAmount());
-        parameter.put(PROMOTIONAL_PRODUCT, productInStore.isPromotional());
-        namedParameterJdbcTemplate.update(UPDATE_BY_UPC, parameter);
+    public void updateByUPC(String upc, ProductInStore productInStore) {
+        Map<String, Object> parameters = new HashMap<>();
+		parameters.put(UPC, productInStore.getUPC());
+		parameters.put(UPC_PROM, productInStore.getPromotionalUPC());
+		parameters.put(ID_PRODUCT, productInStore.getProduct().getId());
+		parameters.put(SELLING_PRICE, productInStore.getPrice());
+		parameters.put(PRODUCTS_NUMBER, productInStore.getAmount());
+		parameters.put(PROMOTIONAL_PRODUCT, productInStore.isPromotional());
+        namedParameterJdbcTemplate.update(UPDATE_BY_UPC, parameters);
 
     }
 
@@ -144,4 +145,11 @@ public class DefaultProductInStoreDAO implements ProductInStoreDAO {
         namedParameterJdbcTemplate.update(UPDATE_AMOUNT_BY_UPC, parameter);
     }
 
+	@Override
+	public Integer getProductIdIfExists(final Integer productId)
+	{
+		Map<String , Object> parameter = new HashMap<>();
+		parameter.put(ID_PRODUCT , productId);
+		return namedParameterJdbcTemplate.queryForObject(SELECT_PRODUCT_ID , parameter , Integer.class);
+	}
 }

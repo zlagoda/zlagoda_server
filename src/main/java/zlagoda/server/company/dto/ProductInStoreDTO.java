@@ -11,7 +11,7 @@ public class ProductInStoreDTO {
     private String id;
     private String UPC;
     private String promotionalUPC;
-    private int productId;
+    private Integer productId;
     private BigDecimal price;
     private int amount;
     private boolean promotional;

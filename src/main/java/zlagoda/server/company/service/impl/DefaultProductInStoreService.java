@@ -3,6 +3,7 @@ package zlagoda.server.company.service.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.acls.model.AlreadyExistsException;
 import org.springframework.stereotype.Service;
 
 import zlagoda.server.company.dao.ProductInStoreDAO;
@@ -32,6 +33,10 @@ public class DefaultProductInStoreService implements ProductInStoreService {
 
     @Override
     public int insertNew(ProductInStore productInStore) {
+		if (productInStore.isPromotional())
+		{
+			productInStore.setPromotionalUPC(productInStore.getUPC());
+		}
         return productInStoreDAO.insertNew(productInStore);
     }
 
@@ -42,6 +47,10 @@ public class DefaultProductInStoreService implements ProductInStoreService {
 
     @Override
     public void updateByUPC(String UPC, ProductInStore productInStore) {
+		if (productInStore.isPromotional())
+		{
+			productInStore.setPromotionalUPC(productInStore.getUPC());
+		}
        productInStoreDAO.updateByUPC(UPC, productInStore); 
     }
 
