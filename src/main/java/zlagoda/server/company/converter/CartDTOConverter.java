@@ -38,6 +38,11 @@ public class CartDTOConverter implements Converter<CartDTO, Check> {
             totalSum = totalSum.add(item.getPrice());
         }
         check.setProducts(products);
+        if (card != null) {
+            totalSum = totalSum.divide(new BigDecimal("100"));
+            int discount = 100 - card.getPercent();
+            totalSum = totalSum.multiply(new BigDecimal(discount));
+        } 
         check.setTotalSum(totalSum);
         BigDecimal VAT = totalSum.multiply(new BigDecimal("0.2"));
         check.setVAT(VAT);

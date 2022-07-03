@@ -70,3 +70,32 @@ function checkEmptyCart() {
   }
   return true;
 }
+
+function searchEmployee() {
+  const form = document.getElementById("searchFromEmployee");
+  let emmployees = Array.from(
+    document.getElementsByClassName("table__row_cells")
+  );
+  emmployees.forEach((element) => {
+    let name = element.cells[0].innerText.toLowerCase();
+    let role = element.cells[2].innerText;
+    let isGood = false;
+    if (form["manager"].checked) {
+      isGood = isGood || role === "MANAGER";
+    }
+    if (form["cashier"].checked) {
+      isGood = isGood || role === "CASHIER";
+    }
+    if (form["name"].value !== "") {
+      let searchValue = form["name"].value.toLowerCase();
+      isGood = isGood && name.includes(searchValue);
+    }
+    if (!isGood) {
+      console.log(isGood);
+      element.style.display = "none";
+    } else {
+      console.log(isGood);
+      element.style.display = "table-row";
+    }
+  });
+}
