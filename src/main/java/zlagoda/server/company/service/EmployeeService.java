@@ -16,4 +16,6 @@ public interface EmployeeService
 	void registerEmployee(final Employee employee);
 
 	void deleteEmployee(final String employeeId);
+
+	Employee getCurrent();
 }
