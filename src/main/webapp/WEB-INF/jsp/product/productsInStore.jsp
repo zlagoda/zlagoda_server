@@ -32,6 +32,7 @@ tagdir="/WEB-INF/tags" %>
         <th class="table__cell table__cell_header">Category</th>
         <th class="table__cell table__cell_header table__cell-button hidden-print"></th>
         <th class="table__cell table__cell_header table__cell-button hidden-print"></th>
+        <th class="table__cell table__cell_header table__cell-button hidden-print"></th>
       </tr>
     <c:forEach items="${products}" var="product">
 <tr class="table__row">
@@ -42,6 +43,15 @@ tagdir="/WEB-INF/tags" %>
         <td class="table__cell">${product.price}</td>
         <td class="table__cell">${product.amount}</td>
         <td class="table__cell">${product.product.category.name}</td>
+        <td class="table__cell table__cell-button hidden-print">
+          <form:form onSubmit="return getAmount(${product.amount});" modelAttribute="product" action="/cashier/cart/add" method="post">
+            <input name="UPC" type="hidden" value="${product.UPC}"/>
+            <input name="name" type="hidden" value="${product.product.name}"/>
+            <input class="addCartAmountInput" name="amount" type="hidden" value="0"/>
+            <input name="price" type="hidden" value="${product.price}"/>
+            <button type="submit">Add to cart</button>
+          </form:form>
+        </td>
         <td class="table__cell table__cell-button hidden-print">
           <a href="/manager/products-in-store/${product.UPC}">Edit</a>
         </td>

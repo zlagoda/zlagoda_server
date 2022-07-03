@@ -12,6 +12,7 @@
       <a class="sidebar__item" href="/manager/categories">Categories</a>
     </sec:authorize>
     <a class="sidebar__item" href="/customers">Customers</a>
+    <a class="sidebar__item" href="/cashier/cart">Cart</a>
     <a class="sidebar__item" href="/check">Checks</a>
     <a class="sidebar__item" href="/me">About Me</a>
   </div>
