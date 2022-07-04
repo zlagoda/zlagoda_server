@@ -183,27 +183,46 @@ function setProductInStoreSearchForm() {
   let searchProductsInStoreForm = document.getElementById(
     "searchFormProductInStore"
   );
-  let sort = getURLParameter("sort") == null ? "count" : getURLParameter("sort");
+  let sort =
+    getURLParameter("sort") == null ? "count" : getURLParameter("sort");
   let name = getURLParameter("name");
+  let promotionalYes =
+    getURLParameter("promotional-yes") === null ? false : true;
+  let promotionalNo = getURLParameter("promotional-no") === null ? false : true;
+  if (!promotionalNo && !promotionalYes) {
+    promotionalNo = true;
+    promotionalYes = true;
+  }
   searchProductsInStoreForm["name"].value = name;
   searchProductsInStoreForm["sort"].value = sort;
-  if (name !== null && name !== "") {
-    let products = Array.from(
-      document.getElementsByClassName("table__row_cells")
-    );
-    products.forEach((element) => {
-      let name = element.cells[2].innerText.toLowerCase();
-      let UPC = element.cells[0].innerText.toLowerCase();
-      let isGood = true;
+  searchProductsInStoreForm["promotional-yes"].checked = promotionalYes;
+  searchProductsInStoreForm["promotional-no"].checked = promotionalNo;
+  let products = Array.from(
+    document.getElementsByClassName("table__row_cells")
+  );
+  products.forEach((element) => {
+    let isGood = false;
+    let name = element.cells[2].innerText.toLowerCase();
+    let UPC = element.cells[0].innerText.toLowerCase();
+    let promotional =
+      element.cells[1].innerText.toLowerCase() == "yes" ? true : false;
+    if (promotionalNo) {
+      isGood = isGood || !promotional;
+    }
+    if (promotionalYes) {
+      isGood = isGood || promotional;
+    }
+    if (name !== null && name !== "") {
       let searchValue = searchProductsInStoreForm["name"].value.toLowerCase();
-      isGood = isGood && (name.includes(searchValue) || UPC.includes(searchValue));
-      if (!isGood) {
-        element.style.display = "none";
-      } else {
-        element.style.display = "table-row";
-      }
-    });
-  }
+      isGood =
+        isGood && (name.includes(searchValue) || UPC.includes(searchValue));
+    }
+    if (!isGood) {
+      element.style.display = "none";
+    } else {
+      element.style.display = "table-row";
+    }
+  });
 }
 
 window.addEventListener("load", setProductInStoreSearchForm);

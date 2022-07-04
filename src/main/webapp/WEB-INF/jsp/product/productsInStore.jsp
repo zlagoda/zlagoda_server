@@ -32,6 +32,15 @@ tagdir="/WEB-INF/tags" %>
       <input type="radio" name="sort" value="name">
       Name
     </label>
+    <label>
+     |  Promotional
+      <input type="checkbox" name="promotional-yes" value="yes">
+      Yes
+    </label>
+    <label>
+      <input type="checkbox" name="promotional-no" value="no">
+      No
+    </label>
     <button type="submit">Sort</button>
   </form:form>
   <div>
