@@ -1,14 +1,21 @@
 package zlagoda.server.company.dao.impl;
 
+import java.sql.ResultSet;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import zlagoda.server.company.dao.CheckDAO;
+import zlagoda.server.company.dao.mapper.DefaultCheckRowMapper;
+import zlagoda.server.company.dao.mapper.DefaultProductRowMapper;
 import zlagoda.server.company.entity.Check;
+import zlagoda.server.company.entity.Product;
 import zlagoda.server.company.entity.SoldProduct;
 
 @Repository
@@ -101,45 +108,57 @@ public class DefaultCheckDAO implements CheckDAO {
         parameter.put(SELLING_PRICE, soldProduct.getPrice());
         namedParameterJdbcTemplate.update(INSERT_NEW_SALE_TO_CHECK, parameter);
     }
+
     @Override
-    public void getChecksForPeriod(final String print_date) {
+    public List<Check> getChecksForPeriod(final String print_date) {
+        RowMapper<Check> mapper = new DefaultCheckRowMapper();
         Map<String, Object> parameter = new HashMap<>();
         parameter.put(PRINT_DATE, print_date);
-        namedParameterJdbcTemplate.update(GET_CHECKS_FOR_A_PERIOD, parameter);
+        return namedParameterJdbcTemplate.query(GET_CHECKS_FOR_A_PERIOD, parameter, mapper);
     }
+
     @Override
-    public void getChecksForPeriodByCashier(final String id_employee, final String print_date) {
+    public List<Check> getChecksForPeriodByCashier(final String id_employee, final String print_date) {
+        RowMapper<Check> mapper = new DefaultCheckRowMapper();
         Map<String, Object> parameter = new HashMap<>();
         parameter.put(ID_EMPLOYEE, id_employee);
         parameter.put(PRINT_DATE, print_date);
-        namedParameterJdbcTemplate.update(GET_CHECKS_FOR_A_PERIOD_BY_CASHIER, parameter);
+        return namedParameterJdbcTemplate.query(GET_CHECKS_FOR_A_PERIOD_BY_CASHIER, parameter, mapper);
     }
+
     @Override
-    public void getCheck(final String check_number){
+    public Optional<Check> getCheck(final String check_number){
+        RowMapper<Check> mapper = new DefaultCheckRowMapper();
         Map<String, Object> parameter = new HashMap<>();
         parameter.put(CHECK_NUMBER, check_number);
-        namedParameterJdbcTemplate.update(GET_CHECK, parameter);
+        List<Check> checks = namedParameterJdbcTemplate.query(GET_CHECK, parameter, mapper);
+        return checks.stream().findFirst();
     }
-    @Override
-    public void soldProductsSumByCashier(final String id_employee, final String print_date){
-        Map<String, Object> parameter = new HashMap<>();
-        parameter.put(ID_EMPLOYEE, id_employee);
-        parameter.put(PRINT_DATE, print_date);
-        namedParameterJdbcTemplate.update(SOLD_PRODUCT_SUM_BY_CASHIER, parameter);
-    }
-    @Override
-    public void soldProductsSum(final String print_date){
-        Map<String, Object> parameter = new HashMap<>();
-        parameter.put(PRINT_DATE, print_date);
-        namedParameterJdbcTemplate.update(SOLD_PRODUCT_SUM, parameter);
-    }
-    @Override
-    public void soldProductAmount(final String upc, final String print_date){
-        Map<String, Object> parameter = new HashMap<>();
-        parameter.put(UPC, upc);
-        parameter.put(PRINT_DATE, print_date);
-        namedParameterJdbcTemplate.update(SOLD_PRODUCT_AMOUNT, parameter);
-    }
+
+//    @Override
+//    public int soldProductsSumByCashier(final String id_employee, final String print_date){
+//        Map<String, Object> parameter = new HashMap<>();
+//        parameter.put(ID_EMPLOYEE, id_employee);
+//        parameter.put(PRINT_DATE, print_date);
+//        return namedParameterJdbcTemplate.update(SOLD_PRODUCT_SUM_BY_CASHIER, parameter);
+//    }
+//
+//    @Override
+//    public int soldProductsSum(final String print_date){
+//        RowMapper<Check>
+//        Map<String, Object> parameter = new HashMap<>();
+//        parameter.put(PRINT_DATE, print_date);
+//        ResultSet rs =
+//        return namedParameterJdbcTemplate.query(SOLD_PRODUCT_SUM, parameter);
+//    }
+//
+//    @Override
+//    public int soldProductAmount(final String upc, final String print_date){
+//        Map<String, Object> parameter = new HashMap<>();
+//        parameter.put(UPC, upc);
+//        parameter.put(PRINT_DATE, print_date);
+//        return namedParameterJdbcTemplate.update(SOLD_PRODUCT_AMOUNT, parameter);
+//    }
 
 
 }

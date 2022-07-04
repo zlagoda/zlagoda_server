@@ -13,6 +13,9 @@ import zlagoda.server.company.entity.ProductInStore;
 import zlagoda.server.company.entity.SoldProduct;
 import zlagoda.server.company.service.CheckService;
 
+import java.util.List;
+import java.util.Optional;
+
 @Service
 @Transactional
 public class DefaultCheckService implements CheckService {
@@ -39,28 +42,30 @@ public class DefaultCheckService implements CheckService {
     public void insertNewSale(String checkNumber, SoldProduct soldProduct) {
         checkDAO.insertNewSale(checkNumber, soldProduct);
     }
+
     @Override
-    public void getChecksForPeriod(String print_date) {
-        checkDAO.getChecksForPeriod(print_date);
+    public List<Check> getChecksForPeriod(String print_date) {
+        return checkDAO.getChecksForPeriod(print_date);
     }
     @Override
-    public void getChecksForPeriodByCashier(String id_employee, String print_date) {
-        checkDAO.getChecksForPeriodByCashier(id_employee,print_date);
+    public List<Check> getChecksForPeriodByCashier(String id_employee, String print_date) {
+        return checkDAO.getChecksForPeriodByCashier(id_employee,print_date);
     }
     @Override
-    public void getCheck(String check_number) {
-        checkDAO.getCheck(check_number);
+    public Check getCheck(String check_number) {
+        return checkDAO.getCheck(check_number).orElseThrow();
     }
-    @Override
-    public void soldProductsSumByCashier(String id_employee, String print_date) {
-        checkDAO.soldProductsSumByCashier(id_employee,print_date);
-    }
-    @Override
-    public void soldProductsSum(String print_date) {
-        checkDAO.soldProductsSum(print_date);
-    }
-    @Override
-    public void soldProductAmount(String upc, String print_date) {
-        checkDAO.soldProductAmount(upc, print_date);
-    }
+
+//    @Override
+//    public void soldProductsSumByCashier(String id_employee, String print_date) {
+//        checkDAO.soldProductsSumByCashier(id_employee,print_date);
+//    }
+//    @Override
+//    public void soldProductsSum(String print_date) {
+//        checkDAO.soldProductsSum(print_date);
+//    }
+//    @Override
+//    public void soldProductAmount(String upc, String print_date) {
+//        checkDAO.soldProductAmount(upc, print_date);
+//    }
 }
