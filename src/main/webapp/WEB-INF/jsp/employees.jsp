@@ -10,6 +10,18 @@
 
 <template:page pageTitle="Employees">
     <h6 class="print-header">Employees</h6>
+    <form class="hidden-print" id="searchFromEmployee" onSubmit="event.preventDefault(); searchEmployee();">
+    <input type="search" placeholder="Name" name="name">
+    <label>
+    <input type="checkbox" checked name="cashier" value="CASHIER">
+        CASHIER
+    </label>
+    <label>
+    <input type="checkbox" checked name="manager" value="MANAGER">
+        MANAGER
+    </label>
+    <button type="submit">Шукати</button>
+    </form>
     <div>
         <table class="table">
             <tr class="table__row table__row_header">
@@ -24,8 +36,7 @@
                 <th class="table__cell table__cell_header hidden-print"></th>
             </tr>
             <c:forEach items="${employees}" var="employee">
-                <tr class="table__row">
-                <tr>
+                <tr class="table__row table__row_cells">
                     <td class="table__cell">${employee.surname} ${employee.name} ${employee.patronymic}</td>
                     <td class="table__cell">${employee.phoneNumber}</td>
                     <td class="table__cell">${employee.role}</td>

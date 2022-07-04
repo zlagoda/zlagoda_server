@@ -1,6 +1,8 @@
 package zlagoda.server.company.dao.impl;
 
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -44,7 +46,7 @@ public class DefaultProductInStoreDAO implements ProductInStoreDAO {
             "FROM `Store_Product`\n" +
             "INNER JOIN `Product` ON Store_Product.id_product = Product.id_product\n" +
             "INNER JOIN `Category` ON Product.category_number = Category.category_number\n" +
-            "ORDER BY :sortedBy";
+            "ORDER BY ";
     private static final String FIND_BY_UPC = "SELECT Store_Product.UPC," +
             "Store_Product.UPC_prom," +
             "Store_Product.selling_price," +
@@ -77,22 +79,20 @@ public class DefaultProductInStoreDAO implements ProductInStoreDAO {
     @Override
     public List<ProductInStore> findAll() {
         RowMapper<ProductInStore> mapper = new DefaultProductInStoreMapper();
-        Map<String, Object> parameter = new HashMap<>();
-        parameter.put("sortedBy", "products_number");
-        return namedParameterJdbcTemplate.query(FIND_ALL_PRODUCTS, parameter, mapper);
+        String query = FIND_ALL_PRODUCTS + PRODUCTS_NUMBER;
+        return namedParameterJdbcTemplate.query(query, mapper);
     }
 
     @Override
     public List<ProductInStore> findAllSorted(String sortedBy) {
         RowMapper<ProductInStore> mapper = new DefaultProductInStoreMapper();
-        Map<String, Object> parameter = new HashMap<>();
         if (sortedBy.equals("name")) {
             sortedBy = PRODUCT_NAME;
         } else {
             sortedBy = PRODUCTS_NUMBER;
         }
-        parameter.put("sortedBy", sortedBy);
-        return namedParameterJdbcTemplate.query(FIND_ALL_PRODUCTS, parameter, mapper);
+        String query = FIND_ALL_PRODUCTS + sortedBy;
+        return namedParameterJdbcTemplate.query(query, mapper);
     }
 
     @Override

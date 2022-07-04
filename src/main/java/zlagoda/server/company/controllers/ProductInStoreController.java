@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import zlagoda.server.company.converter.ProductInStoreConverter;
 import zlagoda.server.company.converter.ProductInStoreDTOConverter;
@@ -25,7 +26,6 @@ import zlagoda.server.company.service.ProductInStoreService;
 import zlagoda.server.company.service.ProductService;
 import zlagoda.server.company.validation.ProductInStoreValidator;
 
-
 @Controller
 public class ProductInStoreController {
 
@@ -35,19 +35,24 @@ public class ProductInStoreController {
     @Autowired
     private ProductService productService;
 
-	@Autowired
-	private ProductInStoreValidator productInStoreValidator;
+    @Autowired
+    private ProductInStoreValidator productInStoreValidator;
 
-	@Autowired
-	private ProductInStoreConverter productInStoreConverter;
+    @Autowired
+    private ProductInStoreConverter productInStoreConverter;
 
-	@Autowired
-	private ProductInStoreDTOConverter productInStoreDTOConverter;
+    @Autowired
+    private ProductInStoreDTOConverter productInStoreDTOConverter;
 
-
-	@GetMapping("/products-in-store")
-    public String products(Model model) {
-        List<ProductInStore> products = productInStoreService.getAllProductsInStore();
+    @GetMapping("/products-in-store")
+    public String products(Model model, @RequestParam(required = false, name = "sort") String sort) {
+        List<ProductInStore> products = null;
+        if (sort == null) {
+            products = productInStoreService.getAllProductsInStore();
+        }
+        else {
+            products = productInStoreService.getAllSorted(sort);
+        }
         model.addAttribute("products", products);
         return "product/productsInStore";
     }
@@ -68,17 +73,18 @@ public class ProductInStoreController {
     }
 
     @PostMapping("/manager/products-in-store/edit")
-    public String editProduct(@ModelAttribute("productInStore") ProductInStoreDTO productDTO , BindingResult result , Model model) {
+    public String editProduct(@ModelAttribute("productInStore") ProductInStoreDTO productDTO, BindingResult result,
+            Model model) {
         ProductInStore productInStore = productInStoreDTOConverter.convert(productDTO);
-		productInStoreValidator.validate(productInStore, result);
+        productInStoreValidator.validate(productInStore, result);
         if (!productDTO.getId().equals("0")) {
             productInStoreService.updateByUPC(productDTO.getUPC(), productInStore);
         } else {
-			if (result.hasErrors()){
-				List<Product> products = productService.getAllProducts();
-				model.addAttribute("products", products);
-				return "product/productInStoreEdit";
-			}
+            if (result.hasErrors()) {
+                List<Product> products = productService.getAllProducts();
+                model.addAttribute("products", products);
+                return "product/productInStoreEdit";
+            }
             productInStoreService.insertNew(productInStore);
         }
         return "redirect:/products-in-store";
@@ -90,10 +96,9 @@ public class ProductInStoreController {
         return "redirect:/products-in-store";
     }
 
-	@ExceptionHandler(SQLException.class)
-	public String databaseError(Model model)
-	{
-		model.addAttribute("dataBaseError", "Unknown error was detected while working with database.");
-		return "redirect:/products-in-store";
-	}
+    @ExceptionHandler(SQLException.class)
+    public String databaseError(Model model) {
+        model.addAttribute("dataBaseError", "Unknown error was detected while working with database.");
+        return "redirect:/products-in-store";
+    }
 }

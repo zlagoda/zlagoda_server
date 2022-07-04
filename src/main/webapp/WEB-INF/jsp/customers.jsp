@@ -10,25 +10,36 @@
 
 <template:page pageTitle="Customer Cards">
     <h6 class="print-header">Customer Cards</h6>
+    <form class="hidden-print" id="searchFormCustomer" onSubmit="event.preventDefault(); searchCustomers();">
+    <input type="search" placeholder="Name, phone or card number" name="name">
+    <label>
+        From
+        <input type="number" placeholder="From" min="0" max="100" name="from" value="0">
+    </label>
+    <label>
+        To
+        <input type="number" placeholder="To" min="0" max="100" name="to" value="100">
+    </label>
+    <button type="submit">Шукати</button>
+    </form>
     <div>
         <table class="table">
             <tr class="table__row table__row_header">
                 <th class="table__cell table__cell_header">Name</th>
                 <th class="table__cell table__cell_header">Phone number</th>
-                <th class="table__cell table__cell_header">Number</th>
+                <th class="table__cell table__cell_header">Card number</th>
                 <th class="table__cell table__cell_header">Address</th>
                 <th class="table__cell table__cell_header">Discount</th>
                 <th class="table__cell table__cell_header hidden-print"></th>
                 <th class="table__cell table__cell_header hidden-print"></th>
             </tr>
             <c:forEach items="${customerCards}" var="customerCard">
-                <tr class="table__row">
-                <tr>
-                    <td class="table__cell">${customerCard.name} ${customerCard.surname} ${customerCard.patronymic}</td>
+                <tr class="table__row table__row_cells">
+                    <td class="table__cell">${customerCard.surname} ${customerCard.name} ${customerCard.patronymic}</td>
                     <td class="table__cell">${customerCard.phoneNumber}</td>
                     <td class="table__cell">${customerCard.number}</td>
-                    <td class="table__cell">${customerCard.city}${customerCard.street}${customerCard.zipCode}</td>
-                    <td class="table__cell">${customerCard.percent}</td>
+                    <td class="table__cell">${customerCard.city} ${customerCard.street} ${customerCard.zipCode}</td>
+                    <td class="table__cell">${customerCard.percent}%</td>
                     <td class="table__cell hidden-print">
                         <a href="/customer/${customerCard.number}">Edit</a>
                     </td>

@@ -21,6 +21,28 @@ tagdir="/WEB-INF/tags" %>
     </a>
   </div>
   <h6 class="print-header">Products in store</h6>
+  <form:form class="hidden-print" id="searchFormProductInStore" method="get">
+    <input type="search" placeholder="Name or UPC" name="name">
+    <label>
+      Sorted by 
+      <input type="radio" name="sort" value="count">
+      Count
+    </label>
+    <label>
+      <input type="radio" name="sort" value="name">
+      Name
+    </label>
+    <label>
+     |  Promotional
+      <input type="checkbox" name="promotional-yes" value="yes">
+      Yes
+    </label>
+    <label>
+      <input type="checkbox" name="promotional-no" value="no">
+      No
+    </label>
+    <button type="submit">Sort</button>
+  </form:form>
   <div>
     <table class="table">
       <tr class="table__row table__row_header">
@@ -30,18 +52,29 @@ tagdir="/WEB-INF/tags" %>
         <th class="table__cell table__cell_header">Price</th>
         <th class="table__cell table__cell_header">Amount</th>
         <th class="table__cell table__cell_header">Category</th>
+        <th class="table__cell table__cell_header">Characteristics</th>
+        <th class="table__cell table__cell_header table__cell-button hidden-print"></th>
         <th class="table__cell table__cell_header table__cell-button hidden-print"></th>
         <th class="table__cell table__cell_header table__cell-button hidden-print"></th>
       </tr>
     <c:forEach items="${products}" var="product">
-<tr class="table__row">
-      <tr>
+      <tr class="table__row table__row_cells">
         <td class="table__cell">${product.UPC}</td>
         <td class="table__cell">${product.promotional ? "Yes" : "No"}</td>
         <td class="table__cell">${product.product.name}</td>
         <td class="table__cell">${product.price}</td>
         <td class="table__cell">${product.amount}</td>
         <td class="table__cell">${product.product.category.name}</td>
+        <td class="table__cell">${product.product.characteristics}</td>
+        <td class="table__cell table__cell-button hidden-print">
+          <form:form onSubmit="return getAmount(${product.amount});" modelAttribute="product" action="/cashier/cart/add" method="post">
+            <input name="UPC" type="hidden" value="${product.UPC}"/>
+            <input name="name" type="hidden" value="${product.product.name}"/>
+            <input class="addCartAmountInput" name="amount" type="hidden" value="0"/>
+            <input name="price" type="hidden" value="${product.price}"/>
+            <button type="submit">Add to cart</button>
+          </form:form>
+        </td>
         <td class="table__cell table__cell-button hidden-print">
           <a href="/manager/products-in-store/${product.UPC}">Edit</a>
         </td>
