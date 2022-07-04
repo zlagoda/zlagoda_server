@@ -12,6 +12,12 @@ tagdir="/WEB-INF/tags" %>
       location.href = "/products-in-store";
     </script>
   </c:if>
+  <c:if test="${not empty param.dataBaseError}">
+    <script>
+      alert(getURLParameter("constraintError"));
+      location.href = "/products-in-store";
+    </script>
+  </c:if>
   <div class="hidden-print">
     <button onclick="print()">Print</button>
   </div>

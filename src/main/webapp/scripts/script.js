@@ -226,3 +226,26 @@ function setProductInStoreSearchForm() {
 }
 
 window.addEventListener("load", setProductInStoreSearchForm);
+
+function setProductEditPromotionalListener() {
+  let isPormotionalCheckbox = document.getElementById("isPromotionalCheckbox");
+  let priceEdit = document.getElementById("priceEdit");
+  if (!isPormotionalCheckbox.checked) {
+    priceEdit.style.display = "inline-block";
+    priceEdit.setAttribute("required", "true");
+  } else {
+    priceEdit.style.display = "none";
+    priceEdit.removeAttribute("required");
+  }
+  isPormotionalCheckbox.addEventListener("change", () => {
+    if (!isPormotionalCheckbox.checked) {
+      priceEdit.style.display = "inline-block";
+      priceEdit.setAttribute("required", "true");
+    } else {
+      priceEdit.style.display = "none";
+      priceEdit.removeAttribute("required");
+    }
+  });
+}
+
+window.addEventListener("load", setProductEditPromotionalListener);
