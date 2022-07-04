@@ -128,3 +128,33 @@ function searchCustomers() {
     }
   });
 }
+
+function searchProducts() {
+  const form = document.getElementById("searchFormProduct");
+  let products = Array.from(
+    document.getElementsByClassName("table__row_cells")
+  );
+  let checkboxes = form["category"];
+  let isCheckedSome = false;
+  checkboxes.forEach((box) => {
+    isCheckedSome = isCheckedSome || box.checked;
+  });
+  products.forEach((element) => {
+    let category = element.cells[2].innerText.toLowerCase();
+    let isGood = true;
+    if (isCheckedSome) {
+      isGood = false;
+      for (let box of checkboxes) {
+        if (box.checked && box.value.toLowerCase() === category) {
+          isGood = true;
+          break;
+        }
+      }
+    }
+    if (!isGood) {
+      element.style.display = "none";
+    } else {
+      element.style.display = "table-row";
+    }
+  });
+}
