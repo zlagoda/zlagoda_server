@@ -26,7 +26,7 @@
                 <br>
                 <br>
                 <label>patronymic : </label>
-                <input type="text" name="patronymic" value="${customerCard.patronymic}" required/>
+                <input type="text" name="patronymic" value="${customerCard.patronymic}"/>
                 <form:errors path="patronymic" type="number" name="phoneNumber" cssStyle="background: #ff704d;border-radius: 5px"/>
                 <br>
                 <br>
@@ -36,17 +36,17 @@
                 <br>
                 <br>
                 <label>Street : </label>
-                <input type="text" name="street" value="${customerCard.street}" required/>
+                <input type="text" name="street" value="${customerCard.street}">
                 <form:errors path="street" type="number" name="phoneNumber" cssStyle="background: #ff704d;border-radius: 5px"/>
                 <br>
                 <br>
                 <label>City : </label>
-                <input type="text" name="city" value="${customerCard.city}" required/>
+                <input type="text" name="city" value="${customerCard.city}"/>
                 <form:errors path="city" type="number" name="phoneNumber" cssStyle="background: #ff704d;border-radius: 5px"/>
                 <br>
                 <br>
                 <label>Zip-code : </label>
-                <form:input path="zipCode" type="text" name="zipCode" value="${customerCard.zipCode}" required="true" />
+                <form:input path="zipCode" type="text" name="zipCode" value="${customerCard.zipCode}"/>
                 <form:errors path="zipCode" type="text" name="zipCode" cssStyle="background: #ff704d;border-radius: 5px"/>
                 <br>
                 <br>

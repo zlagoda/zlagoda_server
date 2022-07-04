@@ -91,10 +91,39 @@ function searchEmployee() {
       isGood = isGood && name.includes(searchValue);
     }
     if (!isGood) {
-      console.log(isGood);
       element.style.display = "none";
     } else {
-      console.log(isGood);
+      element.style.display = "table-row";
+    }
+  });
+}
+
+function searchCustomers() {
+  const form = document.getElementById("searchFormCustomer");
+  let emmployees = Array.from(
+    document.getElementsByClassName("table__row_cells")
+  );
+  emmployees.forEach((element) => {
+    let name = element.cells[0].innerText.toLowerCase();
+    let phoneNumber = element.cells[1].innerText.toLowerCase();
+    let cardNumber = element.cells[2].innerText.toLowerCase();
+    let discount = parseInt(element.cells[4].innerText, 10);
+    let isGood = true;
+    if (form["name"].value !== "") {
+      let searchValue = form["name"].value.toLowerCase();
+      isGood =
+        isGood &&
+        (name.includes(searchValue) ||
+          phoneNumber.includes(searchValue) ||
+          cardNumber.includes(searchValue));
+    }
+    let from = form["from"].value;
+    let to = form["to"].value;
+    isGood = isGood && discount >= from;
+    isGood = isGood && discount <= to;
+    if (!isGood) {
+      element.style.display = "none";
+    } else {
       element.style.display = "table-row";
     }
   });

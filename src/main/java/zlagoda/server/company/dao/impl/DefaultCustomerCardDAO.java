@@ -30,7 +30,7 @@ public class DefaultCustomerCardDAO implements CustomerCardDAO
 	private static final String ZIP_CODE = "zip_code";
 	private static final String PERCENT = "percent";
 
-	private static final String SELECT_ALL_CUSTOMERS = "SELECT * FROM Customer_Card;";
+	private static final String SELECT_ALL_CUSTOMERS = "SELECT * FROM Customer_Card ORDER BY cust_surname";
 	private static final String INSERT_NEW_CUSTOMER_CARD = "INSERT INTO Customer_Card "
 			+ "(card_number ,cust_surname,cust_name,cust_patronymic, phone_number, city,street, zip_code,percent)"
 			+ "VALUES ( :card_number , :cust_surname ,:cust_name, :cust_patronymic, :phone_number, "
