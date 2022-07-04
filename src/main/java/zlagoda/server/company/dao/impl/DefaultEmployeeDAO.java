@@ -105,7 +105,14 @@ public class DefaultEmployeeDAO implements EmployeeDAO
 		}
 		parameter.put(NAME, employee.getName());
 		parameter.put(PATRONYMIC, employee.getPatronymic());
-		parameter.put(PASSWORD, passwordEncoder.encode(employee.getPassword()));
+		if (employee.getPassword().charAt(0) == '$')
+		{
+			parameter.put(PASSWORD, employee.getPassword());
+		}
+		else
+		{
+			parameter.put(PASSWORD, passwordEncoder.encode(employee.getPassword()));
+		}
 		parameter.put(ROLE, employee.getRole().name());
 		parameter.put(SALARY, employee.getSalary());
 		parameter.put(BIRTH_DATE, employee.getBirthdate());
