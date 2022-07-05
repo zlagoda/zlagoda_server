@@ -3,6 +3,7 @@ package zlagoda.server.company.dao;
 import java.util.List;
 import java.util.Optional;
 
+import zlagoda.server.company.dto.CustomerCardDTO;
 import zlagoda.server.company.entity.CustomerCard;
 import zlagoda.server.company.entity.Employee;
 
@@ -18,4 +19,5 @@ public interface CustomerCardDAO
 	void saveCustomer(final CustomerCard customerCard);
 
 	void deleteCustomer(final String cardNumber);
+	List<CustomerCardDTO> getBoughtProductSum();
 }
