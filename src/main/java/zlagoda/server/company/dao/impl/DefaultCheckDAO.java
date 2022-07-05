@@ -37,15 +37,18 @@ public class DefaultCheckDAO implements CheckDAO {
     private static final String INSERT_NEW_CHECK = "INSERT INTO `Check` (" +
     "check_number, id_employee, card_number, print_date, sum_total, vat) VALUES (" +
     ":check_number, :id_employee, :card_number, :print_date, :sum_total, :vat)";
+
     private static final String INSERT_NEW_SALE_TO_CHECK = "INSERT INTO `Sale` (" +
     "UPC, check_number, product_number, selling_price) VALUES (" +
     ":UPC, :check_number, :product_number, :selling_price)";
+
     private static final String GET_CHECK = "SELECT" +
             "*" +
             "FROM" +
             "    `Check`" +
             "WHERE" +
             "    `Check`.`check_number` = :check_number";
+
     private static final String GET_CHECKS_FOR_A_PERIOD_BY_CASHIER = "SELECT\n" +
             "    `Check`.`card_number`,\n" +
             "    `Check`.`check_number`,\n" +
@@ -53,7 +56,6 @@ public class DefaultCheckDAO implements CheckDAO {
             "    `Check`.`print_date`,\n" +
             "    `Check`.`sum_total`,\n" +
             "    `Check`.`vat`" +
-
             "FROM\n" +
             "    `Check`\n" +
             "        INNER JOIN Employee ON Employee.id_employee = `Check`.id_employee\n" +
@@ -72,6 +74,7 @@ public class DefaultCheckDAO implements CheckDAO {
             "        INNER JOIN Employee ON Employee.id_employee = `Check`.id_employee\n" +
             "WHERE\n" +
             "         Employee.role = 'cashier' AND `Check`.print_date >= :print_date";
+
     private static final String SOLD_PRODUCT_SUM_BY_CASHIER = "SELECT SUM(`Check`.`sum_total`) AS check_sum, `Check`.`id_employee`\n" +
             "FROM `Check`\n" +
             "         INNER JOIN Employee ON Employee.id_employee = `Check`.id_employee\n" +
@@ -87,6 +90,8 @@ public class DefaultCheckDAO implements CheckDAO {
             "FROM Sale\n" +
             "         INNER JOIN `Check` ON `Check`.`check_number` = Sale.check_number\n" +
             "WHERE Sale.UPC LIKE :UPC AND`Check`.`print_date` >= :print_date";
+
+	private static final String GET_CHECKS = "SELECT * FROM `Check` ;";
 
     @Override
     public void insertNewCheck(final Check check) {
@@ -117,7 +122,14 @@ public class DefaultCheckDAO implements CheckDAO {
         return namedParameterJdbcTemplate.query(GET_CHECKS_FOR_A_PERIOD, parameter, mapper);
     }
 
-    @Override
+	@Override
+	public List<Check> getChecks()
+	{
+		RowMapper<Check> mapper = new DefaultCheckRowMapper();
+		return namedParameterJdbcTemplate.query(GET_CHECKS, mapper);
+	}
+
+	@Override
     public List<Check> getChecksForPeriodByCashier(final String id_employee, final String print_date) {
         RowMapper<Check> mapper = new DefaultCheckRowMapper();
         Map<String, Object> parameter = new HashMap<>();
@@ -127,10 +139,10 @@ public class DefaultCheckDAO implements CheckDAO {
     }
 
     @Override
-    public Optional<Check> getCheck(final String check_number){
+    public Optional<Check> getCheck(final String checkNumber){
         RowMapper<Check> mapper = new DefaultCheckRowMapper();
         Map<String, Object> parameter = new HashMap<>();
-        parameter.put(CHECK_NUMBER, check_number);
+        parameter.put(CHECK_NUMBER, checkNumber);
         List<Check> checks = namedParameterJdbcTemplate.query(GET_CHECK, parameter, mapper);
         return checks.stream().findFirst();
     }
@@ -159,6 +171,5 @@ public class DefaultCheckDAO implements CheckDAO {
 //        parameter.put(PRINT_DATE, print_date);
 //        return namedParameterJdbcTemplate.update(SOLD_PRODUCT_AMOUNT, parameter);
 //    }
-
 
 }

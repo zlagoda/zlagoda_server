@@ -38,6 +38,7 @@ public class DefaultCheckService implements CheckService {
             checkDAO.insertNewSale(check.getNumber(), sale);
         }
     }
+
     @Override
     public void insertNewSale(String checkNumber, SoldProduct soldProduct) {
         checkDAO.insertNewSale(checkNumber, soldProduct);
@@ -47,13 +48,23 @@ public class DefaultCheckService implements CheckService {
     public List<Check> getChecksForPeriod(String print_date) {
         return checkDAO.getChecksForPeriod(print_date);
     }
-    @Override
+
+	@Override
+	public List<Check> getChecks()
+	{
+		return checkDAO.getChecks();
+	}
+
+	@Override
     public List<Check> getChecksForPeriodByCashier(String id_employee, String print_date) {
         return checkDAO.getChecksForPeriodByCashier(id_employee,print_date);
     }
+
+
+
     @Override
-    public Check getCheck(String check_number) {
-        return checkDAO.getCheck(check_number).orElseThrow();
+    public Check getCheck(String checkNumber) {
+        return checkDAO.getCheck(checkNumber).orElseThrow();
     }
 
 //    @Override
