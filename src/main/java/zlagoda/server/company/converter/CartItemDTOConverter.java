@@ -12,6 +12,7 @@ public class CartItemDTOConverter implements Converter<CartItemDTO, SoldProduct>
     @Override
     public SoldProduct convert(CartItemDTO cartItemDTO) {
         SoldProduct product = new SoldProduct();
+        product.setName(cartItemDTO.getName());
         product.setUPC(cartItemDTO.getUPC());
         product.setAmount(cartItemDTO.getAmount());
         product.setPrice(cartItemDTO.getPrice());

@@ -15,16 +15,36 @@
         <button onclick="print()">Print</button>
     </div>
     <h6 class="print-header">Checks</h6>
-    <form class="hidden-print" id="searchFormCheck" onSubmit="event.preventDefault(); searchChecks();">
-        <!--TODO-->
-        <c:forEach items="${checks}" var="check">
-      <%--<span>
+    <select id="selectCheckFilter">
+      <option value="1">Category</option>
+      <option value="2">Products</option>
+      <option value="3">Employees</option>
+    </select>
+    <form class="hidden-print" id="searchFormCheck">
+      <c:forEach items="${categories}" var="category">
+        <span>
         <label>
           ${category.name}
-          <input type="checkbox" name="category" value="${category.name}">
+          <input type="checkbox" name="category" value="${category.id}">
         </label>|
-      </span>--%>
-        </c:forEach>
+        </span>
+      </c:forEach>
+    </br>
+      <c:forEach items="${products}" var="product">
+        <span>
+        <label>
+          ${product.name}
+          <input type="checkbox" name="product" value="${product.id}">
+        </label>|
+        </span>
+      </c:forEach>
+        <label>
+            Only this
+          <input type="checkbox" name="only" value="true">
+        </label>
+
+
+
         <button type="submit">Шукати</button>
     </form>
     <div>
@@ -41,7 +61,7 @@
             <c:forEach items="${checks}" var="check">
                 <tr class="table__row table__row_cells">
                     <td class="table__cell">${check.number}</td>
-                    <td class="table__cell">${check.employee.id}</td>
+                    <td class="table__cell">${check.employee.surname} ${check.employee.name} ${check.employee.patronymic}</td>
                     <td class="table__cell">${check.card.number}</td>
                     <td class="table__cell">${check.printDate}</td>
                     <td class="table__cell">${check.totalSum}</td>
@@ -53,7 +73,7 @@
             </c:forEach>
         </table>
         <c:if test="${empty checks}">
-            <p>Seems like there are no products.</p>
+            <p>Seems like there are no checks.</p>
         </c:if>
     </div>
 </template:page>
