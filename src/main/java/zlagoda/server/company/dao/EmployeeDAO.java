@@ -3,6 +3,7 @@ package zlagoda.server.company.dao;
 import java.util.List;
 import java.util.Optional;
 
+import zlagoda.server.company.dto.EmployeeStatDTO;
 import zlagoda.server.company.entity.Employee;
 
 
@@ -19,4 +20,7 @@ public interface EmployeeDAO
 	void saveEmployee(final String employeeId , final Employee employee);
 
 	void deleteEmployee(final String employeeId);
+
+    List<EmployeeStatDTO> getEmployeeStats();
+
 }

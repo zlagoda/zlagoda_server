@@ -13,6 +13,8 @@ import org.springframework.stereotype.Repository;
 
 import zlagoda.server.company.dao.EmployeeDAO;
 import zlagoda.server.company.dao.mapper.DefaultEmployeeRowMapper;
+import zlagoda.server.company.dao.mapper.DefaultEmployeeStatDTOMapper;
+import zlagoda.server.company.dto.EmployeeStatDTO;
 import zlagoda.server.company.entity.Employee;
 
 
@@ -43,6 +45,18 @@ public class DefaultEmployeeDAO implements EmployeeDAO
 
 	private static final String FIND_BY_ID = "SELECT * FROM `Employee` WHERE id_employee = :id_employee ";
 	private static final String FIND_ALL_EMPLOYEES = "SELECT * FROM `Employee` ORDER BY empl_surname";
+	private static final String EMPLOYEE_CREATED_CHECK_AMOUNT_AND_SUM = "SELECT\n" +
+			"    COUNT(`Check`.`check_number`) AS checks_created,\n" +
+			"    SUM(`Check`.`sum_total`) AS total_sum,\n" +
+			"    `Check`.id_employee,\n" +
+			"    Employee.empl_name,\n" +
+			"    Employee.empl_surname,\n" +
+			"    Employee.role\n" +
+			"FROM\n" +
+			"    `Check`\n" +
+			"INNER JOIN Employee ON Employee.id_employee = `Check`.id_employee\n" +
+			"GROUP BY\n" +
+			"    `Check`.id_employee";
   
 	private static final String UPDATE_BY_ID = "UPDATE Employee\n"
 			+ "SET empl_surname = :empl_surname,\n"
@@ -59,8 +73,7 @@ public class DefaultEmployeeDAO implements EmployeeDAO
 			+ "zip_code = :zip_code\n"
 			+ "WHERE id_employee = :id_employee;";
 
-	private static final String INSERT_EMPLOYEE =
-			"INSERT INTO Employee (id_employee, empl_surname, empl_name, password , role , empl_patronymic, salary, date_of_birth, "
+	private static final String INSERT_EMPLOYEE = "INSERT INTO Employee (id_employee, empl_surname, empl_name, password , role , empl_patronymic, salary, date_of_birth, "
 					+ " date_of_start, phone_number, city, street, zip_code) "
 					+ " VALUES ( :id_employee , :empl_surname , :empl_name , :password , :role , :empl_patronymic , "
 					+ ":salary , :date_of_birth , :date_of_start, :phone_number , :city , :street , :zip_code);";
@@ -151,4 +164,10 @@ public class DefaultEmployeeDAO implements EmployeeDAO
 		parameter.put(ID_EMPLOYEE , employeeId);
 		namedParameterJdbcTemplate.update(DELETE_EMPLOYEE , parameter);
 	}
-}
+
+	@Override
+	public List<EmployeeStatDTO> getEmployeeStats(){
+		RowMapper<EmployeeStatDTO> mapper = new DefaultEmployeeStatDTOMapper();
+		return namedParameterJdbcTemplate.query(EMPLOYEE_CREATED_CHECK_AMOUNT_AND_SUM, mapper);
+	}
+ }

@@ -2,6 +2,7 @@ package zlagoda.server.company.service;
 
 import java.util.List;
 
+import zlagoda.server.company.dto.EmployeeStatDTO;
 import zlagoda.server.company.entity.Employee;
 
 
@@ -18,4 +19,7 @@ public interface EmployeeService
 	void deleteEmployee(final String employeeId);
 
 	Employee getCurrent();
+
+	List<EmployeeStatDTO> getEmployeeStats();
+
 }
