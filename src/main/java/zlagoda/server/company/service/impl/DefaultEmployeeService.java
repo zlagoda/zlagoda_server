@@ -10,7 +10,7 @@ import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 
 import zlagoda.server.company.dao.EmployeeDAO;
-import zlagoda.server.company.dto.EmployeeStatDTO;
+import zlagoda.server.company.dto.EmployeeStatisticDTO;
 import zlagoda.server.company.entity.Employee;
 import zlagoda.server.company.security.EmployeeDetails;
 import zlagoda.server.company.service.EmployeeService;
@@ -109,7 +109,7 @@ public class DefaultEmployeeService implements EmployeeService {
 	}
 
 	@Override
-	public List<EmployeeStatDTO> getEmployeeStats() {
+	public List<EmployeeStatisticDTO> getEmployeeStats() {
 		return employeeDAO.getEmployeeStats();
 	}
 }
