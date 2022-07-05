@@ -15,7 +15,7 @@ public class DefaultCategoryService implements CategoryService {
     @Autowired
     private CategoryDAO categoryDAO;
 
-    @Override
+	@Override
     public List<Category> getAllCategories() {
         return categoryDAO.findAllCategories();
     }

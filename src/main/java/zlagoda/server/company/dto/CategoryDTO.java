@@ -13,4 +13,5 @@ public class CategoryDTO {
     private int totalAmount;
     private BigDecimal totalPrice;
     private String catName;
+	private int id;
 }
