@@ -68,7 +68,7 @@ public class CheckController {
 	 * }
 	 */
 
-	@GetMapping("/manager/checks")
+	@GetMapping("/checks")
 	public String checks(Model model,
 			@RequestParam(required = false, name = "filterSelect") Integer select,
 			@RequestParam(required = false, name = "only") boolean onlyThis,

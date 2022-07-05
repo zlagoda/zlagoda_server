@@ -13,10 +13,12 @@
     <h6 class="print-header">Customer Cards</h6>
     <sec:authorize access="hasRole('MANAGER')">
     <button class="hidden-print" onclick="print()">Print</button>
+    </sec:authorize>
+
     <a href="/customer/add">
         <button class="hidden-print">Add</button>
     </a>
-    </sec:authorize>
+
     <form class="hidden-print" id="searchFormCustomer" onSubmit="event.preventDefault(); searchCustomers();">
     <input type="search" placeholder="Name, phone or card number" name="name">
     <label>
@@ -37,8 +39,8 @@
                 <th class="table__cell table__cell_header">Card number</th>
                 <th class="table__cell table__cell_header">Address</th>
                 <th class="table__cell table__cell_header">Discount</th>
-                <sec:authorize access="hasRole('MANAGER')">
-                <th class="table__cell table__cell_header hidden-print"></th>
+                <th class="table__cell table__cell_header hidden-print">
+                </th><sec:authorize access="hasRole('MANAGER')">
                 <th class="table__cell table__cell_header hidden-print"></th>
                 </sec:authorize>
             </tr>
@@ -49,10 +51,10 @@
                     <td class="table__cell">${customerCard.number}</td>
                     <td class="table__cell">${customerCard.city} ${customerCard.street} ${customerCard.zipCode}</td>
                     <td class="table__cell">${customerCard.percent}%</td>
-                    <sec:authorize access="hasRole('MANAGER')">
                     <td class="table__cell hidden-print">
                         <a href="/customer/${customerCard.number}">Edit</a>
                     </td>
+                    <sec:authorize access="hasRole('MANAGER')">
                     <td class="table__cell hidden-print">
                         <a href="/customer/delete/${customerCard.number}" onclick="return confirm('Are you sure?')">Delete</a>
                     </td>

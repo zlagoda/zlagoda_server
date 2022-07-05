@@ -10,6 +10,9 @@
 
 <template:page pageTitle="Employees">
     <h6 class="print-header">Employees</h6>
+    <sec:authorize access="hasRole('MANAGER')">
+        <button class="hidden-print" onclick="print()">Print</button>
+    </sec:authorize>
     <form class="hidden-print" id="searchFromEmployee" onSubmit="event.preventDefault(); searchEmployee();">
     <input type="search" placeholder="Name" name="name">
     <label>
