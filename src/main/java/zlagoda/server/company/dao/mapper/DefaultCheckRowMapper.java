@@ -30,9 +30,11 @@ public class DefaultCheckRowMapper implements RowMapper<Check> {
         Employee employee = new Employee();
         employee.setId(rs.getString(ID_EMPLOYEE));
         check.setEmployee(employee);
+
         CustomerCard customer_card = new CustomerCard();
-        customer_card.setNumber(CARD_NUMBER);
+        customer_card.setNumber(rs.getString(CARD_NUMBER));
         check.setCard(customer_card);
+
         check.setPrintDate(rs.getTimestamp(PRINT_DATE));
         check.setTotalSum(rs.getBigDecimal(SUM_TOTAL));
         check.setVAT(rs.getBigDecimal(VAT));

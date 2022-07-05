@@ -13,7 +13,7 @@
     </sec:authorize>
     <a class="sidebar__item" href="/customers">Customers</a>
     <a class="sidebar__item" href="/cashier/cart">Cart</a>
-    <a class="sidebar__item" href="/check">Checks</a>
+    <a class="sidebar__item" href="/checks">Checks</a>
     <a class="sidebar__item" href="/me">About Me</a>
   </div>
   <a class="sidebar__item sidebar__logout" href="/logout">Log out </a>
