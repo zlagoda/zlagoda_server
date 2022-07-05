@@ -15,55 +15,57 @@
         <button onclick="print()">Print</button>
     </div>
     <h6 class="print-header">Checks</h6>
-    <form class="hidden-print" id="searchFormCheck">
-    <select id="selectCheckFilter" name="filterSelect">
-      <option value="1">Category</option>
-      <option value="2">Products</option>
-      <option value="3">Employees</option>
-    </select>
-      <div id="1checkSearch">
-      <c:forEach items="${categories}" var="category">
+    <div class="container links-style">
+        <form class="hidden-print" id="searchFormCheck">
+            <select id="selectCheckFilter" name="filterSelect">
+                <option value="1">Category</option>
+                <option value="2">Products</option>
+                <option value="3">Employees</option>
+            </select>
+            <div id="1checkSearch">
+                <c:forEach items="${categories}" var="category">
         <span>
         <label>
           ${category.name}
           <input type="checkbox" name="category" value="${category.id}">
         </label>|
         </span>
-      </c:forEach>
-      <label>
-            Only this
-          <input type="checkbox" name="only" value="true">
-        </label>
-      </div>
-      <div id="2checkSearch">
-      <c:forEach items="${products}" var="product">
+                </c:forEach>
+                <label>
+                    Only this
+                    <input type="checkbox" name="only" value="true">
+                </label>
+            </div>
+            <div id="2checkSearch">
+                <c:forEach items="${products}" var="product">
         <span>
         <label>
           ${product.name}
           <input type="checkbox" name="product" value="${product.id}">
         </label>|
         </span>
-      </c:forEach>
-      </div>
-      <div id="3checkSearch">
-        <select name="employee">
-          <c:forEach items="${employees}" var="employee">
-            <option value="${employee.id}">${employee.surname} ${employee.name} ${employee.patronymic}</option>
-          </c:forEach>
-        </select>
-      </div> 
-      <button type="submit">Search</button>
-    </form>
-    <br>
-    <form onSubmit="event.preventDefault(); filterChecksByDate();">
-      <label>From</label>
-      <input type="datetime-local" id="timeFromCheck">
-      <br>
-      <label>To</label>
-      <input type="datetime-local" id="timeToCheck">
-      <br>
-      <button class="hidden-print" type="submit">Filter</button>
-    </form>
+                </c:forEach>
+            </div>
+            <div id="3checkSearch">
+                <select name="employee">
+                    <c:forEach items="${employees}" var="employee">
+                        <option value="${employee.id}">${employee.surname} ${employee.name} ${employee.patronymic}</option>
+                    </c:forEach>
+                </select>
+            </div>
+            <button type="submit">Search</button>
+        </form>
+        <br>
+        <form onSubmit="event.preventDefault(); filterChecksByDate();">
+            <label>From</label>
+            <input type="datetime-local" id="timeFromCheck">
+            <br>
+            <label>To</label>
+            <input type="datetime-local" id="timeToCheck">
+            <br>
+            <button class="hidden-print" type="submit">Filter</button>
+        </form>
+    </div>
     <div>
         <table class="table">
             <tr class="table__row table__row_header">

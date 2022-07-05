@@ -23,10 +23,17 @@ public class CategoryController {
 
     @GetMapping("/manager/categories")
     public String categories(Model model) {
-		List<CategoryDTO> categoryDTOS = categoryService.soldProductAmountInEachCategory();
-        model.addAttribute("categoryDTOS", categoryDTOS);
+		List<Category> categories = categoryService.getAllCategories();
+		model.addAttribute("categories", categories);
         return "category/categories";
     }
+
+	@GetMapping("/manager/categories/statistics")
+	public String categoriesStat(Model model) {
+		List<CategoryDTO> categoryDTOS = categoryService.soldProductAmountInEachCategory();
+		model.addAttribute("categoryDTOS", categoryDTOS);
+		return "category/categoryStatistics";
+	}
 
     @GetMapping("/manager/categories/edit/{categoryId}")
     public String category(@PathVariable("categoryId") String categoryId, Model model) {
