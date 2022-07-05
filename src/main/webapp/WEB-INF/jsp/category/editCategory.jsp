@@ -4,6 +4,7 @@ uri="http://www.springframework.org/tags/form" %> <%@ taglib prefix="template"
 tagdir="/WEB-INF/tags" %>
 
 <template:page pageTitle="Edit Category">
+    <div class="container links-style">
   <form:form
     modelAttribute="category"
     action="/manager/categories/edit"
@@ -16,4 +17,5 @@ tagdir="/WEB-INF/tags" %>
   <a href="/manager/categories">
     <button>Go back</button>
   </a>
+    </div>
 </template:page>

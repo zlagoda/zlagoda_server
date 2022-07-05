@@ -4,6 +4,7 @@ uri="http://java.sun.com/jsp/jstl/functions" %> <%@ taglib prefix="form"
 uri="http://www.springframework.org/tags/form" %> <%@ taglib prefix="template"
 tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 <template:page pageTitle="Products in store">
   <c:if test="${not empty param.constraintError}">
@@ -14,10 +15,11 @@ tagdir="/WEB-INF/tags" %>
   </c:if>
   <c:if test="${not empty param.dataBaseError}">
     <script>
-      alert(getURLParameter("constraintError"));
+      alert(getURLParameter("dataBaseError"));
       location.href = "/products-in-store";
     </script>
   </c:if>
+  <sec:authorize access="hasRole('MANAGER')">
   <div class="hidden-print">
     <button onclick="print()">Print</button>
   </div>
@@ -26,6 +28,7 @@ tagdir="/WEB-INF/tags" %>
       <button>Add new</button>
     </a>
   </div>
+  </sec:authorize>
   <h6 class="print-header">Products in store</h6>
   <form:form class="hidden-print" id="searchFormProductInStore" method="get">
     <input type="search" placeholder="Name or UPC" name="name">
@@ -59,9 +62,13 @@ tagdir="/WEB-INF/tags" %>
         <th class="table__cell table__cell_header">Amount</th>
         <th class="table__cell table__cell_header">Category</th>
         <th class="table__cell table__cell_header">Characteristics</th>
+        <sec:authorize access="hasRole('CASHIER')">
+        <th class="table__cell table__cell_header table__cell-button hidden-print"></th>
+        </sec:authorize>
+        <sec:authorize access="hasRole('MANAGER')">
         <th class="table__cell table__cell_header table__cell-button hidden-print"></th>
         <th class="table__cell table__cell_header table__cell-button hidden-print"></th>
-        <th class="table__cell table__cell_header table__cell-button hidden-print"></th>
+        </sec:authorize>
       </tr>
     <c:forEach items="${products}" var="product">
       <tr class="table__row table__row_cells">
@@ -72,6 +79,7 @@ tagdir="/WEB-INF/tags" %>
         <td class="table__cell">${product.amount}</td>
         <td class="table__cell">${product.product.category.name}</td>
         <td class="table__cell">${product.product.characteristics}</td>
+        <sec:authorize access="hasRole('CASHIER')">
         <td class="table__cell table__cell-button hidden-print">
           <form:form onSubmit="return getAmount(${product.amount});" modelAttribute="product" action="/cashier/cart/add" method="post">
             <input name="UPC" type="hidden" value="${product.UPC}"/>
@@ -81,6 +89,8 @@ tagdir="/WEB-INF/tags" %>
             <button type="submit">Add to cart</button>
           </form:form>
         </td>
+        </sec:authorize>
+        <sec:authorize access="hasRole('MANAGER')">
         <td class="table__cell table__cell-button hidden-print">
           <a href="/manager/products-in-store/${product.UPC}">Edit</a>
         </td>
@@ -90,6 +100,7 @@ tagdir="/WEB-INF/tags" %>
             <button type="submit" onclick="return confirm('Are you sure?')">Delete</button>
           </form:form>
         </td>
+        </sec:authorize>
       </tr>
     </c:forEach>
     </table>
