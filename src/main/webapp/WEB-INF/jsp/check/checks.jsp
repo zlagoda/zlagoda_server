@@ -62,7 +62,7 @@
       <label>To</label>
       <input type="datetime-local" id="timeToCheck">
       <br>
-      <button type="submit">Filter</button>
+      <button class="hidden-print" type="submit">Filter</button>
     </form>
     <div>
         <table class="table">
