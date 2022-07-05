@@ -26,17 +26,13 @@ tagdir="/WEB-INF/tags" %>
     <table class="table">
       <tr class="table__row table__row_header">
         <th class="table__cell table__cell_header">Name</th>
-        <th class="table__cell table__cell_header">Amount</th>
-        <th class="table__cell table__cell_header">Total Price</th>
         <th class="table__cell table__cell_header hidden-print"></th>
         <th class="table__cell table__cell_header table__cell-button hidden-print"></th>
       </tr>
-    <c:forEach items="${categoryDTOS}" var="category">
+    <c:forEach items="${categories}" var="category">
 <tr class="table__row">
       <tr>
-        <td class="table__cell">${category.catName}</td>
-        <td class="table__cell">${category.totalAmount}</td>
-        <td class="table__cell">${category.totalPrice}</td>
+        <td class="table__cell">${category.name}</td>
         <td class="table__cell table__cell-button hidden-print">
           <a href="/manager/categories/edit/${category.id}">Edit</a>
         </td>
@@ -49,8 +45,11 @@ tagdir="/WEB-INF/tags" %>
       </tr>
     </c:forEach>
     </table>
-    <c:if test="${empty categoryDTOS}">
+    <c:if test="${empty categories}">
         <p>Seems like there are no categories.</p>
     </c:if>
+      <a href="/manager/categories/statistics">
+          <h5>Statistics</h5>
+      </a>
   </div>
 </template:page>

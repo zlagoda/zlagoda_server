@@ -32,9 +32,17 @@ public class CustomerCardController
 	@GetMapping("customers")
 	public String customers(Model model)
 	{
-		List<CustomerCardDTO> customerCardDTOS = customerCardService.getBoughtProductSum();
-		model.addAttribute("customerCards", customerCardDTOS);
+		List<CustomerCard> customerCards = customerCardService.getAllCustomers();
+		model.addAttribute("customerCards", customerCards);
 		return "customers";
+	}
+
+	@GetMapping("customers/statistics")
+	public String customersStat(Model model)
+	{
+		List<CustomerCardDTO> customerCardDTOS = customerCardService.getBoughtProductSum();
+		model.addAttribute("customerCardDTOS", customerCardDTOS);
+		return "customerStatistics";
 	}
 
 	@GetMapping("/customer/add")

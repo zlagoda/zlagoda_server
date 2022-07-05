@@ -13,18 +13,20 @@
     <sec:authorize access="hasRole('MANAGER')">
         <button class="hidden-print" onclick="print()">Print</button>
     </sec:authorize>
-    <form class="hidden-print" id="searchFromEmployee" onSubmit="event.preventDefault(); searchEmployee();">
-    <input type="search" placeholder="Name" name="name">
-    <label>
-    <input type="checkbox" checked name="cashier" value="CASHIER">
-        CASHIER
-    </label>
-    <label>
-    <input type="checkbox" checked name="manager" value="MANAGER">
-        MANAGER
-    </label>
-    <button type="submit">Шукати</button>
-    </form>
+    <div class="container links-style">
+        <form class="hidden-print" id="searchFromEmployee" onSubmit="event.preventDefault(); searchEmployee();">
+            <input type="search" placeholder="Name" name="name">
+            <label>
+                <input type="checkbox" checked name="cashier" value="CASHIER">
+                CASHIER
+            </label>
+            <label>
+                <input type="checkbox" checked name="manager" value="MANAGER">
+                MANAGER
+            </label>
+            <button type="submit">Шукати</button>
+        </form>
+    </div>
     <div>
         <table class="table">
             <tr class="table__row table__row_header">
