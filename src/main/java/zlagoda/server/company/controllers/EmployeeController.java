@@ -39,6 +39,14 @@ public class EmployeeController
 		return "employees";
 	}
 
+	@GetMapping("/me")
+	public String me(Model model)
+	{
+		Employee employee = employeeService.getCurrent();
+		model.addAttribute("employee", employee);
+		return "myAccount";
+	}
+
 	@GetMapping("/employee/{employeeId}")
 	public String employee(@PathVariable("employeeId") String employeeId, Model model)
 	{

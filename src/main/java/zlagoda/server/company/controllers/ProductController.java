@@ -31,6 +31,8 @@ public class ProductController {
     public String products(Model model) {
         List<Product> products = productService.getAllProducts();
         model.addAttribute("products", products);
+        List<Category> categories = categoryService.getAllCategories();
+        model.addAttribute("categories", categories);
         return "product/products";
     }
 

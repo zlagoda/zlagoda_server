@@ -8,22 +8,23 @@ import zlagoda.server.company.entity.Product;
 import zlagoda.server.company.entity.ProductInStore;
 
 @Component
-public class ProductInStoreDTOConverter implements Converter<ProductInStoreDTO , ProductInStore>
-{
+public class ProductInStoreDTOConverter implements Converter<ProductInStoreDTO, ProductInStore> {
+
 	@Override
-	public ProductInStore convert(final ProductInStoreDTO productInStoreDTO)
-	{
+	public ProductInStore convert(final ProductInStoreDTO productInStoreDTO) {
 		ProductInStore productInStore = new ProductInStore();
 		productInStore.setUPC(productInStoreDTO.getUPC());
-
-		if (productInStoreDTO.getProductId() != null)
-		{
+		if (productInStoreDTO.getProductId() != null) {
 			Product product = new Product();
 			product.setId(productInStoreDTO.getProductId());
 			productInStore.setProduct(product);
-
 		}
-		productInStore.setPromotionalUPC(productInStoreDTO.getPromotionalUPC());
+		if (productInStoreDTO.getPromotionalUPC().isEmpty()) {
+			productInStore.setPromotionalUPC(null);
+		}
+		else {
+			productInStore.setPromotionalUPC(productInStoreDTO.getPromotionalUPC());
+		}
 		productInStore.setPromotional(productInStoreDTO.isPromotional());
 		productInStore.setPrice(productInStoreDTO.getPrice());
 		productInStore.setAmount(productInStoreDTO.getAmount());

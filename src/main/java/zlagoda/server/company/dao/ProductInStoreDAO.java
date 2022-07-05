@@ -14,4 +14,6 @@ public interface ProductInStoreDAO {
     void updateByUPC(final String UPC, final ProductInStore productInStore);
     void updateAmountByUPC(final String UPC, final int amount);
 	Integer getProductIdIfExists(final Integer productId);
+    Optional<ProductInStore> getNonPromotionalByProductId(final Integer productId);
+    Optional<ProductInStore> getPromotionalByProductId(final Integer productId);
 }

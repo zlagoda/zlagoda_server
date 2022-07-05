@@ -1,6 +1,8 @@
 package zlagoda.server.company.dao.impl;
 
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -44,7 +46,7 @@ public class DefaultProductInStoreDAO implements ProductInStoreDAO {
             "FROM `Store_Product`\n" +
             "INNER JOIN `Product` ON Store_Product.id_product = Product.id_product\n" +
             "INNER JOIN `Category` ON Product.category_number = Category.category_number\n" +
-            "ORDER BY :sortedBy";
+            "ORDER BY ";
     private static final String FIND_BY_UPC = "SELECT Store_Product.UPC," +
             "Store_Product.UPC_prom," +
             "Store_Product.selling_price," +
@@ -72,27 +74,53 @@ public class DefaultProductInStoreDAO implements ProductInStoreDAO {
             "products_number = :products_number," +
             "promotional_product = :promotional_product\n" +
             "WHERE UPC = :UPC";
-	private static final String SELECT_PRODUCT_ID = "SELECT id_product FROM Store_Product WHERE id_product =:id_product ";
+    private static final String SELECT_PRODUCT_ID = "SELECT id_product FROM Store_Product WHERE id_product =:id_product ";
+    private static final String FIND_NON_PROMOTIONAL_BY_PRODUCT_ID = "SELECT Store_Product.UPC," +
+            "Store_Product.UPC_prom," +
+            "Store_Product.selling_price," +
+            "Store_Product.products_number," +
+            "Store_Product.promotional_product," +
+            "Product.id_product AS product_id," +
+            "Product.product_name," +
+            "Product.characteristics," +
+            "Category.category_number AS category_id," +
+            "Category.category_name\n" +
+            "FROM `Store_Product`\n" +
+            "INNER JOIN `Product` ON Store_Product.id_product = Product.id_product\n" +
+            "INNER JOIN `Category` ON Product.category_number = Category.category_number\n" +
+            "WHERE Product.id_product = :id_product AND Store_Product.promotional_product = 0";
+    private static final String FIND_PROMOTIONAL_BY_PRODUCT_ID = "SELECT Store_Product.UPC," +
+            "Store_Product.UPC_prom," +
+            "Store_Product.selling_price," +
+            "Store_Product.products_number," +
+            "Store_Product.promotional_product," +
+            "Product.id_product AS product_id," +
+            "Product.product_name," +
+            "Product.characteristics," +
+            "Category.category_number AS category_id," +
+            "Category.category_name\n" +
+            "FROM `Store_Product`\n" +
+            "INNER JOIN `Product` ON Store_Product.id_product = Product.id_product\n" +
+            "INNER JOIN `Category` ON Product.category_number = Category.category_number\n" +
+            "WHERE Product.id_product = :id_product AND Store_Product.promotional_product = 1";
 
     @Override
     public List<ProductInStore> findAll() {
         RowMapper<ProductInStore> mapper = new DefaultProductInStoreMapper();
-        Map<String, Object> parameter = new HashMap<>();
-        parameter.put("sortedBy", "products_number");
-        return namedParameterJdbcTemplate.query(FIND_ALL_PRODUCTS, parameter, mapper);
+        String query = FIND_ALL_PRODUCTS + PRODUCTS_NUMBER;
+        return namedParameterJdbcTemplate.query(query, mapper);
     }
 
     @Override
     public List<ProductInStore> findAllSorted(String sortedBy) {
         RowMapper<ProductInStore> mapper = new DefaultProductInStoreMapper();
-        Map<String, Object> parameter = new HashMap<>();
         if (sortedBy.equals("name")) {
             sortedBy = PRODUCT_NAME;
         } else {
             sortedBy = PRODUCTS_NUMBER;
         }
-        parameter.put("sortedBy", sortedBy);
-        return namedParameterJdbcTemplate.query(FIND_ALL_PRODUCTS, parameter, mapper);
+        String query = FIND_ALL_PRODUCTS + sortedBy;
+        return namedParameterJdbcTemplate.query(query, mapper);
     }
 
     @Override
@@ -126,13 +154,14 @@ public class DefaultProductInStoreDAO implements ProductInStoreDAO {
 
     @Override
     public void updateByUPC(String upc, ProductInStore productInStore) {
+        System.out.println(productInStore.toString());
         Map<String, Object> parameters = new HashMap<>();
-		parameters.put(UPC, productInStore.getUPC());
-		parameters.put(UPC_PROM, productInStore.getPromotionalUPC());
-		parameters.put(ID_PRODUCT, productInStore.getProduct().getId());
-		parameters.put(SELLING_PRICE, productInStore.getPrice());
-		parameters.put(PRODUCTS_NUMBER, productInStore.getAmount());
-		parameters.put(PROMOTIONAL_PRODUCT, productInStore.isPromotional());
+        parameters.put(UPC, productInStore.getUPC());
+        parameters.put(UPC_PROM, productInStore.getPromotionalUPC());
+        parameters.put(ID_PRODUCT, productInStore.getProduct().getId());
+        parameters.put(SELLING_PRICE, productInStore.getPrice());
+        parameters.put(PRODUCTS_NUMBER, productInStore.getAmount());
+        parameters.put(PROMOTIONAL_PRODUCT, productInStore.isPromotional());
         namedParameterJdbcTemplate.update(UPDATE_BY_UPC, parameters);
 
     }
@@ -145,11 +174,30 @@ public class DefaultProductInStoreDAO implements ProductInStoreDAO {
         namedParameterJdbcTemplate.update(UPDATE_AMOUNT_BY_UPC, parameter);
     }
 
-	@Override
-	public Integer getProductIdIfExists(final Integer productId)
-	{
-		Map<String , Object> parameter = new HashMap<>();
-		parameter.put(ID_PRODUCT , productId);
-		return namedParameterJdbcTemplate.queryForObject(SELECT_PRODUCT_ID , parameter , Integer.class);
-	}
+    @Override
+    public Integer getProductIdIfExists(final Integer productId) {
+        Map<String, Object> parameter = new HashMap<>();
+        parameter.put(ID_PRODUCT, productId);
+        return namedParameterJdbcTemplate.queryForObject(SELECT_PRODUCT_ID, parameter, Integer.class);
+    }
+
+    @Override
+    public Optional<ProductInStore> getNonPromotionalByProductId(Integer productId) {
+        RowMapper<ProductInStore> mapper = new DefaultProductInStoreMapper();
+        Map<String, Object> parameter = new HashMap<>();
+        parameter.put(ID_PRODUCT, productId);
+        List<ProductInStore> products = namedParameterJdbcTemplate.query(FIND_NON_PROMOTIONAL_BY_PRODUCT_ID, parameter,
+                mapper);
+        return products.stream().findFirst();
+    }
+
+    @Override
+    public Optional<ProductInStore> getPromotionalByProductId(Integer productId) {
+        RowMapper<ProductInStore> mapper = new DefaultProductInStoreMapper();
+        Map<String, Object> parameter = new HashMap<>();
+        parameter.put(ID_PRODUCT, productId);
+        List<ProductInStore> products = namedParameterJdbcTemplate.query(FIND_PROMOTIONAL_BY_PRODUCT_ID, parameter,
+                mapper);
+        return products.stream().findFirst();
+    }
 }

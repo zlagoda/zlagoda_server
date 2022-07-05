@@ -21,6 +21,17 @@ tagdir="/WEB-INF/tags" %>
     </a>
   </div>
   <h6 class="print-header">Products</h6>
+  <form class="hidden-print" id="searchFormProduct" onSubmit="event.preventDefault(); searchProducts();">
+    <c:forEach items="${categories}" var="category">
+      <span>
+        <label>
+          ${category.name}
+          <input type="checkbox" name="category" value="${category.name}">
+        </label>|
+      </span>
+    </c:forEach>
+    <button type="submit">Шукати</button>
+  </form>
   <div>
     <table class="table">
       <tr class="table__row table__row_header">
@@ -31,8 +42,7 @@ tagdir="/WEB-INF/tags" %>
         <th class="table__cell table__cell_header table__cell-button hidden-print"></th>
       </tr>
     <c:forEach items="${products}" var="product">
-<tr class="table__row">
-      <tr>
+      <tr class="table__row table__row_cells">
         <td class="table__cell">${product.name}</td>
         <td class="table__cell">${product.characteristics}</td>
         <td class="table__cell">${product.category.name}</td>
