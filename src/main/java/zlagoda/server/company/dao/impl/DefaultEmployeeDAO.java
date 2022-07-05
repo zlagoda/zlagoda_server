@@ -13,12 +13,14 @@ import org.springframework.stereotype.Repository;
 
 import zlagoda.server.company.dao.EmployeeDAO;
 import zlagoda.server.company.dao.mapper.DefaultEmployeeRowMapper;
-import zlagoda.server.company.dao.mapper.DefaultEmployeeStatisticDTOMapper;
-import zlagoda.server.company.dto.EmployeeStatisticDTO;
+import zlagoda.server.company.dao.mapper.DefaultEmployeeStatDTOMapper;
+import zlagoda.server.company.dto.EmployeeStatDTO;
 import zlagoda.server.company.entity.Employee;
 
+
 @Repository
-public class DefaultEmployeeDAO implements EmployeeDAO {
+public class DefaultEmployeeDAO implements EmployeeDAO
+{
 	@Autowired
 	private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
@@ -43,16 +45,19 @@ public class DefaultEmployeeDAO implements EmployeeDAO {
 
 	private static final String FIND_BY_ID = "SELECT * FROM `Employee` WHERE id_employee = :id_employee ";
 	private static final String FIND_ALL_EMPLOYEES = "SELECT * FROM `Employee` ORDER BY empl_surname";
-	private static final String EMPLOYEE_CREATED_CHECK_AMOUNT_AND_SUM = "SELECT Employee.id_employee,\n" +
-			"Employee.empl_name,\n" +
-			"Employee.empl_surname,\n" +
-			"Employee.empl_patronymic,\n" +
-			"COUNT(ch.check_number) AS checks_count,\n" +
-			"COALESCE(SUM(ch.sum_total + ch.vat), 0) AS total_sum\n" +
-			"FROM Employee\n" +
-			"LEFT JOIN `Check` AS ch ON ch.id_employee = Employee.id_employee\n" +
-			"WHERE Employee.`role` = \"CASHIER\"\n" + "GROUP BY Employee.id_employee\n";
-
+	private static final String EMPLOYEE_CREATED_CHECK_AMOUNT_AND_SUM = "SELECT\n" +
+			"    COUNT(`Check`.`check_number`) AS checks_created,\n" +
+			"    SUM(`Check`.`sum_total`) AS total_sum,\n" +
+			"    `Check`.id_employee,\n" +
+			"    Employee.empl_name,\n" +
+			"    Employee.empl_surname,\n" +
+			"    Employee.role\n" +
+			"FROM\n" +
+			"    `Check`\n" +
+			"INNER JOIN Employee ON Employee.id_employee = `Check`.id_employee\n" +
+			"GROUP BY\n" +
+			"    `Check`.id_employee";
+  
 	private static final String UPDATE_BY_ID = "UPDATE Employee\n"
 			+ "SET empl_surname = :empl_surname,\n"
 			+ "empl_name = :empl_name, \n"
@@ -69,14 +74,15 @@ public class DefaultEmployeeDAO implements EmployeeDAO {
 			+ "WHERE id_employee = :id_employee;";
 
 	private static final String INSERT_EMPLOYEE = "INSERT INTO Employee (id_employee, empl_surname, empl_name, password , role , empl_patronymic, salary, date_of_birth, "
-			+ " date_of_start, phone_number, city, street, zip_code) "
-			+ " VALUES ( :id_employee , :empl_surname , :empl_name , :password , :role , :empl_patronymic , "
-			+ ":salary , :date_of_birth , :date_of_start, :phone_number , :city , :street , :zip_code);";
+					+ " date_of_start, phone_number, city, street, zip_code) "
+					+ " VALUES ( :id_employee , :empl_surname , :empl_name , :password , :role , :empl_patronymic , "
+					+ ":salary , :date_of_birth , :date_of_start, :phone_number , :city , :street , :zip_code);";
 
 	private static final String DELETE_EMPLOYEE = "DELETE FROM Employee WHERE id_employee = :id_employee ;";
 
 	@Override
-	public Optional<Employee> findByName(final String name) {
+	public Optional<Employee> findByName(final String name)
+	{
 		RowMapper<Employee> mapper = new DefaultEmployeeRowMapper();
 		Map<String, Object> parameter = new HashMap<>();
 		parameter.put(NAME, name);
@@ -85,13 +91,15 @@ public class DefaultEmployeeDAO implements EmployeeDAO {
 	}
 
 	@Override
-	public List<Employee> findAllEmployees() {
+	public List<Employee> findAllEmployees()
+	{
 		RowMapper<Employee> mapper = new DefaultEmployeeRowMapper();
 		return namedParameterJdbcTemplate.query(FIND_ALL_EMPLOYEES, mapper);
 	}
 
 	@Override
-	public Optional<Employee> findById(final String employeeId) {
+	public Optional<Employee> findById(final String employeeId)
+	{
 		RowMapper<Employee> mapper = new DefaultEmployeeRowMapper();
 		Map<String, Object> parameter = new HashMap<>();
 		parameter.put(ID_EMPLOYEE, employeeId);
@@ -100,17 +108,22 @@ public class DefaultEmployeeDAO implements EmployeeDAO {
 	}
 
 	@Override
-	public void updateById(String employeeId, Employee employee) {
+	public void updateById(String employeeId, Employee employee)
+	{
 		Map<String, Object> parameter = new HashMap<>();
 		parameter.put(ID_EMPLOYEE, employeeId);
-		if (employee.getSurname() != null) {
+		if (employee.getSurname() != null)
+		{
 			parameter.put(SURNAME, employee.getSurname());
 		}
 		parameter.put(NAME, employee.getName());
 		parameter.put(PATRONYMIC, employee.getPatronymic());
-		if (employee.getPassword().charAt(0) == '$') {
+		if (employee.getPassword().charAt(0) == '$')
+		{
 			parameter.put(PASSWORD, employee.getPassword());
-		} else {
+		}
+		else
+		{
 			parameter.put(PASSWORD, passwordEncoder.encode(employee.getPassword()));
 		}
 		parameter.put(ROLE, employee.getRole().name());
@@ -125,7 +138,8 @@ public class DefaultEmployeeDAO implements EmployeeDAO {
 	}
 
 	@Override
-	public void saveEmployee(final String employeeId, final Employee employee) {
+	public void saveEmployee(final String employeeId , final Employee employee)
+	{
 		Map<String, Object> parameters = new HashMap<>();
 		parameters.put(ID_EMPLOYEE, employeeId);
 		parameters.put(SURNAME, employee.getSurname());
@@ -144,15 +158,16 @@ public class DefaultEmployeeDAO implements EmployeeDAO {
 	}
 
 	@Override
-	public void deleteEmployee(final String employeeId) {
-		Map<String, Object> parameter = new HashMap<>();
-		parameter.put(ID_EMPLOYEE, employeeId);
-		namedParameterJdbcTemplate.update(DELETE_EMPLOYEE, parameter);
+	public void deleteEmployee(final String employeeId)
+	{
+		Map<String , Object> parameter = new HashMap<>();
+		parameter.put(ID_EMPLOYEE , employeeId);
+		namedParameterJdbcTemplate.update(DELETE_EMPLOYEE , parameter);
 	}
 
 	@Override
-	public List<EmployeeStatisticDTO> getEmployeeStats() {
-		RowMapper<EmployeeStatisticDTO> mapper = new DefaultEmployeeStatisticDTOMapper();
+	public List<EmployeeStatDTO> getEmployeeStats(){
+		RowMapper<EmployeeStatDTO> mapper = new DefaultEmployeeStatDTOMapper();
 		return namedParameterJdbcTemplate.query(EMPLOYEE_CREATED_CHECK_AMOUNT_AND_SUM, mapper);
 	}
-}
+ }

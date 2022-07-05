@@ -2,7 +2,7 @@ package zlagoda.server.company.service;
 
 import java.util.List;
 
-import zlagoda.server.company.dto.EmployeeStatisticDTO;
+import zlagoda.server.company.dto.EmployeeStatDTO;
 import zlagoda.server.company.entity.Employee;
 
 
@@ -20,6 +20,6 @@ public interface EmployeeService
 
 	Employee getCurrent();
 
-	List<EmployeeStatisticDTO> getEmployeeStats();
+	List<EmployeeStatDTO> getEmployeeStats();
 
 }

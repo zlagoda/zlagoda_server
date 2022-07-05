@@ -7,11 +7,17 @@ import java.math.BigDecimal;
 
 @Data
 @NoArgsConstructor
-public class EmployeeStatisticDTO {
+public class EmployeeStatDTO {
+    public enum Role {
+        CASHIER,
+        MANAGER
+    }
+
+    private int checksCreated;
+    private BigDecimal totalSum;
     private String id;
     private String name;
     private String surname;
-    private String patronymic;
-    private BigDecimal totalSum;
-    private int checksCount;
+    private EmployeeStatDTO.Role role;
+
 }
