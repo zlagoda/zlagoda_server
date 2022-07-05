@@ -39,6 +39,7 @@
                 <th class="table__cell table__cell_header">Card number</th>
                 <th class="table__cell table__cell_header">Address</th>
                 <th class="table__cell table__cell_header">Discount</th>
+                <th class="table__cell table__cell_header">Money spent</th>
                 <th class="table__cell table__cell_header hidden-print">
                 </th><sec:authorize access="hasRole('MANAGER')">
                 <th class="table__cell table__cell_header hidden-print"></th>
@@ -48,15 +49,16 @@
                 <tr class="table__row table__row_cells">
                     <td class="table__cell">${customerCard.surname} ${customerCard.name} ${customerCard.patronymic}</td>
                     <td class="table__cell">${customerCard.phoneNumber}</td>
-                    <td class="table__cell">${customerCard.number}</td>
+                    <td class="table__cell">${customerCard.cardNumber}</td>
                     <td class="table__cell">${customerCard.city} ${customerCard.street} ${customerCard.zipCode}</td>
                     <td class="table__cell">${customerCard.percent}%</td>
+                    <td class="table__cell">${customerCard.checkSum}</td>
                     <td class="table__cell hidden-print">
-                        <a href="/customer/${customerCard.number}">Edit</a>
+                        <a href="/customer/${customerCard.cardNumber}">Edit</a>
                     </td>
                     <sec:authorize access="hasRole('MANAGER')">
                     <td class="table__cell hidden-print">
-                        <a href="/customer/delete/${customerCard.number}" onclick="return confirm('Are you sure?')">Delete</a>
+                        <a href="/customer/delete/${customerCard.cardNumber}" onclick="return confirm('Are you sure?')">Delete</a>
                     </td>
                     </sec:authorize>
                 </tr>

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import zlagoda.server.company.dto.CustomerCardDTO;
 import zlagoda.server.company.entity.CustomerCard;
 import zlagoda.server.company.service.CustomerCardService;
 import zlagoda.server.company.validation.CustomerValidator;
@@ -31,8 +32,8 @@ public class CustomerCardController
 	@GetMapping("customers")
 	public String customers(Model model)
 	{
-		List<CustomerCard> customerCards = customerCardService.getAllCustomers();
-		model.addAttribute("customerCards", customerCards);
+		List<CustomerCardDTO> customerCardDTOS = customerCardService.getBoughtProductSum();
+		model.addAttribute("customerCards", customerCardDTOS);
 		return "customers";
 	}
 

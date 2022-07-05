@@ -49,7 +49,7 @@ tagdir="/WEB-INF/tags" %>
       </tr>
     </c:forEach>
     </table>
-    <c:if test="${empty categories}">
+    <c:if test="${empty categoryDTOS}">
         <p>Seems like there are no categories.</p>
     </c:if>
   </div>
