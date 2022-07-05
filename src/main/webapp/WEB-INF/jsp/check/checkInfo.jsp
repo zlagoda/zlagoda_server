@@ -44,7 +44,7 @@
         </c:if>
         <h6>Cashier: ${check.employee.surname} ${check.employee.name} ${check.employee.patronymic}</h6>
     </div>
-    <a class="hidden-print" href="/manager/checks">
+    <a class="hidden-print" href="/checks">
         <h4>Go back</h4>
     </a>
 </template:page>

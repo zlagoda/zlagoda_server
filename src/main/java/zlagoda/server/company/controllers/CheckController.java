@@ -63,7 +63,7 @@ public class CheckController {
 	 * }
 	 */
 
-	@GetMapping("/manager/checks")
+	@GetMapping("/checks")
 	public String checks(Model model,
 			@RequestParam(required = false, name = "only") boolean onlyThis,
 			@RequestParam(required = false, name = "product") List<Integer> checkedProducts,
