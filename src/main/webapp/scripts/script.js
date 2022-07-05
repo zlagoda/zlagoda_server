@@ -249,3 +249,12 @@ function setProductEditPromotionalListener() {
 }
 
 window.addEventListener("load", setProductEditPromotionalListener);
+
+function setCheckFilterTypeSelectorEvent() {
+  let selector = document.getElementById("selectCheckFilter");
+  selector.addEventListener("change", () => {
+    console.log(selector.value);
+  })
+}
+
+window.addEventListener("load", setCheckFilterTypeSelectorEvent);

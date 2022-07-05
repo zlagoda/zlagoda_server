@@ -79,14 +79,52 @@ public class DefaultCheckService implements CheckService {
     }
 
     @Override
-    public List<Check> getChecksForPeriod(String print_date) {
-        return checkDAO.getChecksForPeriod(print_date);
+    public List<Check> getChecksConsistCategory(List<Integer> categoryIds, boolean only) {
+        List<Check> checks = null;
+        if (only) {
+            checks = checkDAO.getChecksConsistOnlyCategory(categoryIds);
+        } else {
+            checks = checkDAO.getChecksConsistCategory(categoryIds);
+        }
+        for (Check item : checks) {
+            Employee employee = employeeDAO.findById(item.getEmployee().getId()).orElseThrow();
+            item.setEmployee(employee);
+        }
+        return checks;
     }
 
     @Override
-    public List<Check> getChecksForPeriodByCashier(String id_employee, String print_date) {
-        return checkDAO.getChecksForPeriodByCashier(id_employee, print_date);
+    public List<Check> getChecksConsistProducts(List<Integer> productIds) {
+        List<Check> checks = checkDAO.getChecksConsistProduct(productIds);
+        for (Check item : checks) {
+            Employee employee = employeeDAO.findById(item.getEmployee().getId()).orElseThrow();
+            item.setEmployee(employee);
+        }
+        return checks;
     }
+
+    @Override
+    public List<Check> getChecksByEmployee(String employeeNumber) {
+        List<Check> checks = checkDAO.getChecksByEmployee(employeeNumber);
+        for (Check item : checks) {
+            Employee employee = employeeDAO.findById(item.getEmployee().getId()).orElseThrow();
+            item.setEmployee(employee);
+        }
+        return checks;
+    }
+
+    /*
+     * @Override
+     * public List<Check> getChecksForPeriod(String print_date) {
+     * return checkDAO.getChecksForPeriod(print_date);
+     * }
+     * 
+     * @Override
+     * public List<Check> getChecksForPeriodByCashier(String id_employee, String
+     * print_date) {
+     * return checkDAO.getChecksForPeriodByCashier(id_employee, print_date);
+     * }
+     */
 
     // @Override
     // public void soldProductsSumByCashier(String id_employee, String print_date) {

@@ -15,7 +15,36 @@
         <button onclick="print()">Print</button>
     </div>
     <h6 class="print-header">Checks</h6>
-    <form class="hidden-print" id="searchFormCheck" onSubmit="event.preventDefault(); searchChecks();">
+    <select id="selectCheckFilter">
+      <option value="1">Category</option>
+      <option value="2">Products</option>
+      <option value="3">Employees</option>
+    </select>
+    <form class="hidden-print" id="searchFormCheck">
+      <c:forEach items="${categories}" var="category">
+        <span>
+        <label>
+          ${category.name}
+          <input type="checkbox" name="category" value="${category.id}">
+        </label>|
+        </span>
+      </c:forEach>
+    </br>
+      <c:forEach items="${products}" var="product">
+        <span>
+        <label>
+          ${product.name}
+          <input type="checkbox" name="product" value="${product.id}">
+        </label>|
+        </span>
+      </c:forEach>
+        <label>
+            Only this
+          <input type="checkbox" name="only" value="true">
+        </label>
+
+
+
         <button type="submit">Шукати</button>
     </form>
     <div>
