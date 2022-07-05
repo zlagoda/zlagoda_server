@@ -57,4 +57,6 @@ public class CategoryController {
         model.addAttribute("constraintError", "Error: there are products from this categories");
         return "redirect:/manager/categories";
     }
+
+    //soldProductAmountInEachCategory()
 }
