@@ -10,7 +10,7 @@
     <sec:authorize access="hasRole('MANAGER')">
       <a class="sidebar__item" href="/employees">Employees</a>
       <a class="sidebar__item" href="/manager/categories">Categories</a>
-      <a class="sidebar__item" href="/check">Checks</a>
+      <a class="sidebar__item" href="/manager/checks">Checks</a>
     </sec:authorize>
     <sec:authorize access="hasRole('CASHIER')">
       <a class="sidebar__item" href="/cashier/cart">Cart</a>

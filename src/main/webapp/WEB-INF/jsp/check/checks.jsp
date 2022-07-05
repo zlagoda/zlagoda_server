@@ -16,15 +16,6 @@
     </div>
     <h6 class="print-header">Checks</h6>
     <form class="hidden-print" id="searchFormCheck" onSubmit="event.preventDefault(); searchChecks();">
-        <!--TODO-->
-        <c:forEach items="${checks}" var="check">
-      <%--<span>
-        <label>
-          ${category.name}
-          <input type="checkbox" name="category" value="${category.name}">
-        </label>|
-      </span>--%>
-        </c:forEach>
         <button type="submit">Шукати</button>
     </form>
     <div>
@@ -41,7 +32,7 @@
             <c:forEach items="${checks}" var="check">
                 <tr class="table__row table__row_cells">
                     <td class="table__cell">${check.number}</td>
-                    <td class="table__cell">${check.employee.id}</td>
+                    <td class="table__cell">${check.employee.surname} ${check.employee.name} ${check.employee.patronymic}</td>
                     <td class="table__cell">${check.card.number}</td>
                     <td class="table__cell">${check.printDate}</td>
                     <td class="table__cell">${check.totalSum}</td>
@@ -53,7 +44,7 @@
             </c:forEach>
         </table>
         <c:if test="${empty checks}">
-            <p>Seems like there are no products.</p>
+            <p>Seems like there are no checks.</p>
         </c:if>
     </div>
 </template:page>

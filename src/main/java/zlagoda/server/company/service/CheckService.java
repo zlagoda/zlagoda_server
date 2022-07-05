@@ -12,7 +12,7 @@ public interface CheckService {
     void insertNewCheck(Check check) throws InvalidAttributeValueException;
     void insertNewSale(String checkNumber, SoldProduct soldProduct);
     List<Check> getChecksForPeriod(String print_date);
-    List<Check> getChecks();
+    List<Check> getAllChecksInfo();
     List<Check> getChecksForPeriodByCashier(String id_employee, String print_date);
     Check getCheck(String check_number);
 //    void soldProductsSumByCashier(String id_employee, String print_date);

@@ -34,7 +34,7 @@ public class CheckController
 	@Autowired
 	private CheckService checkService;
 
-	@GetMapping("/checks-for-period")
+	/* @GetMapping("/checks-for-period")
 	public String getChecksForPeriod(String print_date, Model model)
 	{
 		List<Check> checks = checkService.getChecksForPeriod(print_date);
@@ -48,13 +48,13 @@ public class CheckController
 		List<Check> checks = checkService.getChecksForPeriodByCashier(id_employee, print_date);
 		model.addAttribute("checks", checks);
 		return "checks/" + print_date + "/" + id_employee;
-	}
+	} */
 
 
-	@GetMapping("/checks")
+	@GetMapping("/manager/checks")
 	public String checks(Model model)
 	{
-		List<Check> checks = checkService.getChecks();
+		List<Check> checks = checkService.getAllChecksInfo();
 		model.addAttribute("checks" , checks);
 		return "check/checks";
 	}
@@ -63,15 +63,7 @@ public class CheckController
 	public String getCheck(@PathVariable("checkNumber") String checkNumber, Model model)
 	{
 		Check check;
-		int id = Integer.parseInt(checkNumber);
-		if (id > 0)
-		{
-			check = checkService.getCheck(checkNumber);
-		}
-		else
-		{
-			check = new Check();
-		}
+		check = checkService.getCheck(checkNumber);
 		model.addAttribute("check", check);
 		return "check/checkInfo";
 	}
