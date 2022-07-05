@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import zlagoda.server.company.dao.CustomerCardDAO;
+import zlagoda.server.company.dto.CustomerCardDTO;
 import zlagoda.server.company.entity.CustomerCard;
 import zlagoda.server.company.entity.Employee;
 import zlagoda.server.company.service.CustomerCardService;
@@ -48,6 +49,11 @@ public class DefaultCustomerCardService implements CustomerCardService
 	public void deleteCustomer(final String cardNumber)
 	{
 		customerCardDAO.deleteCustomer(cardNumber);
+	}
+
+	@Override
+	public List<CustomerCardDTO> getBoughtProductSum() {
+		return customerCardDAO.getBoughtProductSum();
 	}
 
 	private CustomerCard setOnlyPresentFields(final CustomerCard oldCustomerCard , final CustomerCard newCustomerCard)

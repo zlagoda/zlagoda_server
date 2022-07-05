@@ -66,28 +66,42 @@ public class DefaultCheckDAO implements CheckDAO {
             "    `Check`.`print_date`,\n" +
             "    `Check`.`sum_total`,\n" +
             "    `Check`.`vat`" +
-
             "FROM\n" +
             "    `Check`\n" +
             "        INNER JOIN Employee ON Employee.id_employee = `Check`.id_employee\n" +
             "WHERE\n" +
             "         Employee.role = 'cashier' AND `Check`.print_date >= :print_date";
-    private static final String SOLD_PRODUCT_SUM_BY_CASHIER = "SELECT SUM(`Check`.`sum_total`) AS check_sum, `Check`.`id_employee`\n" +
-            "FROM `Check`\n" +
-            "         INNER JOIN Employee ON Employee.id_employee = `Check`.id_employee\n" +
-            "         INNER JOIN Sale ON Sale.check_number = `Check`.`check_number`\n" +
-            "WHERE `Check`.id_employee = :id_employee AND Employee.role = 'cashier' AND `Check`.`print_date` >= :print_date";
-    private static final String SOLD_PRODUCT_SUM = "SELECT \n" +
-            "\tSUM(`Check`.`sum_total`) AS total_check_sum\n" +
-            "FROM `Check`\n" +
-            "\tINNER JOIN Employee ON Employee.id_employee = `Check`.`id_employee`\n" +
-            "WHERE Employee.role LIKE 'cashier' AND `Check`.`print_date` >= :print_date";
-    private static final String SOLD_PRODUCT_AMOUNT = "SELECT SUM(Sale.product_number) AS sold\n" +
-            "\n" +
-            "FROM Sale\n" +
-            "         INNER JOIN `Check` ON `Check`.`check_number` = Sale.check_number\n" +
-            "WHERE Sale.UPC LIKE :UPC AND`Check`.`print_date` >= :print_date";
 
+    private static final String SOLD_PRODUCT_IN_CATEGORY =
+            "SELECT" +
+            "    SUM(Sale.product_nubmer) AS total_amount," +
+            "    SUM(Sale.selling_price) AS total_price," +
+            "    Category.category_name" +
+            "FROM" +
+            "    Product" +
+            "INNER JOIN Store_Product ON Store_Product.id_product = Product.id_product" +
+            "INNER JOIN Sale ON Sale.UPC = Store_Product.UPC" +
+            "INNER JOIN Check ON Check.check_number = Sale.check_number" +
+            "INNER JOIN Category ON Category.category_number = Product.category_number" +
+            "WHERE" +
+            "    Check.print_date >= :print_date" +
+            "GROUP BY" +
+            "    Product.category_number";
+//    private static final String SOLD_PRODUCT_SUM_BY_CASHIER = "SELECT SUM(`Check`.`sum_total`) AS check_sum, `Check`.`id_employee`\n" +
+//            "FROM `Check`\n" +
+//            "         INNER JOIN Employee ON Employee.id_employee = `Check`.id_employee\n" +
+//            "         INNER JOIN Sale ON Sale.check_number = `Check`.`check_number`\n" +
+//            "WHERE `Check`.id_employee = :id_employee AND Employee.role = 'cashier' AND `Check`.`print_date` >= :print_date";
+//    private static final String SOLD_PRODUCT_SUM = "SELECT \n" +
+//            "\tSUM(`Check`.`sum_total`) AS total_check_sum\n" +
+//            "FROM `Check`\n" +
+//            "\tINNER JOIN Employee ON Employee.id_employee = `Check`.`id_employee`\n" +
+//            "WHERE Employee.role LIKE 'cashier' AND `Check`.`print_date` >= :print_date";
+//    private static final String SOLD_PRODUCT_AMOUNT = "SELECT SUM(Sale.product_number) AS sold\n" +
+//            "\n" +
+//            "FROM Sale\n" +
+//            "         INNER JOIN `Check` ON `Check`.`check_number` = Sale.check_number\n" +
+//            "WHERE Sale.UPC LIKE :UPC AND`Check`.`print_date` >= :print_date";
     @Override
     public void insertNewCheck(final Check check) {
         Map<String, Object> parameter = new HashMap<>();
@@ -134,6 +148,8 @@ public class DefaultCheckDAO implements CheckDAO {
         List<Check> checks = namedParameterJdbcTemplate.query(GET_CHECK, parameter, mapper);
         return checks.stream().findFirst();
     }
+
+
 
 //    @Override
 //    public int soldProductsSumByCashier(final String id_employee, final String print_date){

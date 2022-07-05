@@ -39,7 +39,7 @@ public class DefaultProductDAO implements ProductDAO {
             "Category.category_name\n" +
             "FROM `Product`\n" +
             "INNER JOIN `Category` ON Product.category_number = Category.category_number\n" +
-            "WHERE Product.id_product = :id_product\n" +
+            "WHERE Product.id_product = :id_product" +
             "ORDER BY Product.product_name";
     private static final String FIND_BY_CATEGORY = "SELECT Product.id_product," +
             "Product.product_name," +
@@ -65,6 +65,7 @@ public class DefaultProductDAO implements ProductDAO {
             "WHERE id_product = :id_product";
     private static final String DELETE_BY_ID = "DELETE FROM `Product`\n" +
             "WHERE id_product = :id_product";
+
 
     @Override
     public List<Product> findAll() {

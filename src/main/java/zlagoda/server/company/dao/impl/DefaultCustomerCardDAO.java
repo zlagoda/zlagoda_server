@@ -11,7 +11,9 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import zlagoda.server.company.dao.CustomerCardDAO;
+import zlagoda.server.company.dao.mapper.DefaultCustomerCardDTOMapper;
 import zlagoda.server.company.dao.mapper.DefaultCustomerCardRowMapper;
+import zlagoda.server.company.dto.CustomerCardDTO;
 import zlagoda.server.company.entity.CustomerCard;
 
 @Repository
@@ -53,6 +55,16 @@ public class DefaultCustomerCardDAO implements CustomerCardDAO
 			+ "    percent = :percent "
 			+ "WHERE card_number = :card_number;";
 
+	private static final String BOUGHT_PRODUCTS_SUM = "SELECT\n" +
+			"    SUM(`Check`.sum_total) AS check_sum,\n" +
+			"    `Check`.card_number,\n" +
+			"    Customer_Card.cust_name,\n" +
+			"    Customer_Card.cust_surname\n" +
+			"FROM\n" +
+			"    `Check`\n" +
+			"INNER JOIN Customer_Card ON Customer_Card.card_number = `Check`.card_number\n" +
+			"GROUP BY\n" +
+			"    (Customer_Card.card_number)";
 	@Override
 	public List<CustomerCard> findAllCustomers()
 	{
@@ -108,5 +120,12 @@ public class DefaultCustomerCardDAO implements CustomerCardDAO
 		Map<String  , Object> parameter = new HashMap<>();
 		parameter.put(CARD_NUMBER , cardNumber);
 		namedParameterJdbcTemplate.update(DELETE_CUSTOMER_CARD , parameter);
+	}
+
+	@Override
+	public List<CustomerCardDTO> getBoughtProductSum(){
+		RowMapper<CustomerCardDTO> mapper = new DefaultCustomerCardDTOMapper();
+		return namedParameterJdbcTemplate.query(BOUGHT_PRODUCTS_SUM, mapper);
+
 	}
 }
