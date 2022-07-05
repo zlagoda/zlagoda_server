@@ -250,11 +250,47 @@ function setProductEditPromotionalListener() {
 
 window.addEventListener("load", setProductEditPromotionalListener);
 
+function hideCheckFilter() {
+  let selector = document.getElementById("selectCheckFilter");
+  let d1 = document.getElementById("1checkSearch");
+  let d2 = document.getElementById("2checkSearch");
+  let d3 = document.getElementById("3checkSearch");
+  if (selector.value == "1") {
+    d1.style.display = "block";
+    d2.style.display = "none";
+    d3.style.display = "none";
+  } else if (selector.value == "2") {
+    d1.style.display = "none";
+    d2.style.display = "block";
+    d3.style.display = "none";
+  } else {
+    d1.style.display = "none";
+    d2.style.display = "none";
+    d3.style.display = "block";
+  }
+  console.log(selector.value);
+}
+
 function setCheckFilterTypeSelectorEvent() {
   let selector = document.getElementById("selectCheckFilter");
-  selector.addEventListener("change", () => {
-    console.log(selector.value);
-  })
+  hideCheckFilter();
+  selector.addEventListener("change", hideCheckFilter);
 }
 
 window.addEventListener("load", setCheckFilterTypeSelectorEvent);
+
+function setTotalSumOfChecks() {
+  let totalPrice = 0;
+  let totalVat = 0;
+  let products = Array.from(
+    document.getElementsByClassName("table__row_cells")
+  );
+  products.forEach((element) => {
+    totalPrice += parseFloat(element.cells[4].innerText);
+    totalVat += parseFloat(element.cells[5].innerText);
+  });
+  document.getElementById("totalSumField").innerText = "Total: " + totalPrice.toFixed(4);
+  document.getElementById("vatSumField").innerText = "VAT: " + totalVat.toFixed(4);
+}
+
+window.addEventListener("load", setTotalSumOfChecks);

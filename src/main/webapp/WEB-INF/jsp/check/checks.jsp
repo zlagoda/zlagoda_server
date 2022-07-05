@@ -15,12 +15,13 @@
         <button onclick="print()">Print</button>
     </div>
     <h6 class="print-header">Checks</h6>
-    <select id="selectCheckFilter">
+    <form class="hidden-print" id="searchFormCheck">
+    <select id="selectCheckFilter" name="filterSelect">
       <option value="1">Category</option>
       <option value="2">Products</option>
       <option value="3">Employees</option>
     </select>
-    <form class="hidden-print" id="searchFormCheck">
+      <div id="1checkSearch">
       <c:forEach items="${categories}" var="category">
         <span>
         <label>
@@ -29,7 +30,12 @@
         </label>|
         </span>
       </c:forEach>
-    </br>
+      <label>
+            Only this
+          <input type="checkbox" name="only" value="true">
+        </label>
+      </div>
+      <div id="2checkSearch">
       <c:forEach items="${products}" var="product">
         <span>
         <label>
@@ -38,14 +44,25 @@
         </label>|
         </span>
       </c:forEach>
-        <label>
-            Only this
-          <input type="checkbox" name="only" value="true">
-        </label>
-
-
-
-        <button type="submit">Шукати</button>
+      </div>
+      <div id="3checkSearch">
+        <select name="employee">
+          <c:forEach items="${employees}" var="employee">
+            <option value="${employee.id}">${employee.surname} ${employee.name} ${employee.patronymic}</option>
+          </c:forEach>
+        </select>
+      </div> 
+      <button type="submit">Search</button>
+    </form>
+    <br>
+    <form onSubmit="event.preventDefault()">
+      <label>From</label>
+      <input type="datetime-local">
+      <br>
+      <label>To</label>
+      <input type="datetime-local">
+      <br>
+      <button type="submit">Filter</button>
     </form>
     <div>
         <table class="table">
@@ -54,8 +71,8 @@
                 <th class="table__cell table__cell_header">Employee</th>
                 <th class="table__cell table__cell_header">Customer Card</th>
                 <th class="table__cell table__cell_header">Print date</th>
-                <th class="table__cell table__cell_header">Total</th>
-                <th class="table__cell table__cell_header">Vat</th>
+                <th class="table__cell table__cell_header" id="totalSumField">Total</th>
+                <th class="table__cell table__cell_header" id="vatSumField">Vat</th>
                 <th class="table__cell table__cell_header table__cell-button hidden-print"></th>
             </tr>
             <c:forEach items="${checks}" var="check">
