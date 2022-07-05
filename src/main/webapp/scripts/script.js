@@ -268,7 +268,6 @@ function hideCheckFilter() {
     d2.style.display = "none";
     d3.style.display = "block";
   }
-  console.log(selector.value);
 }
 
 function setCheckFilterTypeSelectorEvent() {
@@ -286,11 +285,41 @@ function setTotalSumOfChecks() {
     document.getElementsByClassName("table__row_cells")
   );
   products.forEach((element) => {
-    totalPrice += parseFloat(element.cells[4].innerText);
-    totalVat += parseFloat(element.cells[5].innerText);
+    if (element.style.display != "none") {
+      totalPrice += parseFloat(element.cells[4].innerText);
+      totalVat += parseFloat(element.cells[5].innerText);
+    }
   });
-  document.getElementById("totalSumField").innerText = "Total: " + totalPrice.toFixed(4);
-  document.getElementById("vatSumField").innerText = "VAT: " + totalVat.toFixed(4);
+  document.getElementById("totalSumField").innerText =
+    "Total: " + totalPrice.toFixed(4);
+  document.getElementById("vatSumField").innerText =
+    "VAT: " + totalVat.toFixed(4);
 }
 
 window.addEventListener("load", setTotalSumOfChecks);
+
+function filterChecksByDate() {
+  let from = document.getElementById("timeFromCheck").value;
+  let to = document.getElementById("timeToCheck").value;
+  from = from == "" ? null : new Date(from);
+  to = to == "" ? null : new Date(to);
+  console.log(from);
+  console.log(to);
+  let checks = Array.from(document.getElementsByClassName("table__row_cells"));
+  checks.forEach((element) => {
+    let date = new Date(element.cells[3].innerText);
+    isGood = true;
+    if (to !== null) {
+      isGood = isGood && to >= date;
+    }
+    if (from !== null) {
+      isGood = isGood && from <= date;
+    }
+    if (!isGood) {
+      element.style.display = "none";
+    } else {
+      element.style.display = "table-row";
+    }
+  });
+  setTotalSumOfChecks();
+}

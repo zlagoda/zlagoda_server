@@ -55,12 +55,12 @@
       <button type="submit">Search</button>
     </form>
     <br>
-    <form onSubmit="event.preventDefault()">
+    <form onSubmit="event.preventDefault(); filterChecksByDate();">
       <label>From</label>
-      <input type="datetime-local">
+      <input type="datetime-local" id="timeFromCheck">
       <br>
       <label>To</label>
-      <input type="datetime-local">
+      <input type="datetime-local" id="timeToCheck">
       <br>
       <button type="submit">Filter</button>
     </form>
