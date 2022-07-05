@@ -48,26 +48,6 @@ public class CheckController {
 	@Autowired
 	private EmployeeService employeeService;
 
-	/*
-	 * @GetMapping("/checks-for-period")
-	 * public String getChecksForPeriod(String print_date, Model model)
-	 * {
-	 * List<Check> checks = checkService.getChecksForPeriod(print_date);
-	 * model.addAttribute("checks", checks);
-	 * return "checks/" + print_date;
-	 * }
-	 * 
-	 * @GetMapping("/checks-for-period/cashier{id_employee}")
-	 * public String getChecksForPeriodByCashier(String id_employee, String
-	 * print_date, Model model)
-	 * {
-	 * List<Check> checks = checkService.getChecksForPeriodByCashier(id_employee,
-	 * print_date);
-	 * model.addAttribute("checks", checks);
-	 * return "checks/" + print_date + "/" + id_employee;
-	 * }
-	 */
-
 	@GetMapping("/checks")
 	public String checks(Model model,
 			@RequestParam(required = false, name = "filterSelect") Integer select,
