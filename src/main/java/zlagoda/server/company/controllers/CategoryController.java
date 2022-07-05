@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import zlagoda.server.company.dto.CategoryDTO;
 import zlagoda.server.company.entity.Category;
 import zlagoda.server.company.service.CategoryService;
 
@@ -22,8 +23,8 @@ public class CategoryController {
 
     @GetMapping("/manager/categories")
     public String categories(Model model) {
-        List<Category> categories = categoryService.getAllCategories();
-        model.addAttribute("categories", categories);
+		List<CategoryDTO> categoryDTOS = categoryService.soldProductAmountInEachCategory();
+        model.addAttribute("categoryDTOS", categoryDTOS);
         return "category/categories";
     }
 

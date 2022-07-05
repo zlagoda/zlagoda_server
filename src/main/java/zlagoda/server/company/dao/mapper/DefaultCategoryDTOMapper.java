@@ -9,6 +9,7 @@ import java.sql.SQLException;
 public class DefaultCategoryDTOMapper implements RowMapper<CategoryDTO> {
 
     private static final String TOTAL_AMOUNT = "total_amount";
+    private static final String CATEGORY_NUMBER = "category_number";
     private static final String TOTAL_PRICE = "total_price";
     private static final String CATEGORY_NAME = "category_name";
 
@@ -18,6 +19,7 @@ public class DefaultCategoryDTOMapper implements RowMapper<CategoryDTO> {
         categoryDTO.setTotalAmount(rs.getInt(TOTAL_AMOUNT));
         categoryDTO.setTotalPrice(rs.getBigDecimal(TOTAL_PRICE));
         categoryDTO.setCatName(rs.getString(CATEGORY_NAME));
+        categoryDTO.setId(rs.getInt(CATEGORY_NUMBER));
         return categoryDTO;
     }
 }

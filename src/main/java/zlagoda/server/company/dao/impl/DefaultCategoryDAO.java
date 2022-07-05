@@ -32,12 +32,12 @@ public class DefaultCategoryDAO implements CategoryDAO {
   private static final String SOLD_PRODUCT_AMOUNT_IN_EACH_CATEGORY = "SELECT \n" +
           "SUM(Sale.product_number) AS total_amount," +
           "SUM(Sale.selling_price) AS total_price," +
-          "Category.category_name\n" +
+          "Category.category_name , Category.category_number " +
           "FROM" +
-          "    Product" +
-          "INNER JOIN Store_Product ON Store_Product.id_product = Product.id_product" +
-          "INNER JOIN Sale ON Sale.UPC = Store_Product.UPC" +
-          "INNER JOIN Category ON Category.category_number = Product.category_number" +
+          "    Product " +
+          "INNER JOIN Store_Product ON Store_Product.id_product = Product.id_product " +
+          "INNER JOIN Sale ON Sale.UPC = Store_Product.UPC " +
+          "INNER JOIN Category ON Category.category_number = Product.category_number " +
           "GROUP BY" +
           "  Product.category_number";
 
