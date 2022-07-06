@@ -56,14 +56,14 @@
             <button type="submit">Search</button>
         </form>
         <br>
-        <form onSubmit="event.preventDefault(); filterChecksByDate();">
+        <form style="display: inline-flex;text-align: center;" class="hidden-print" onSubmit="event.preventDefault(); filterChecksByDate();">
             <label>From</label>
-            <input type="datetime-local" id="timeFromCheck">
+            <input style="margin: 10px;" type="datetime-local" id="timeFromCheck">
             <br>
             <label>To</label>
-            <input type="datetime-local" id="timeToCheck">
+            <input style="margin: 10px;"  type="datetime-local" id="timeToCheck">
             <br>
-            <button class="hidden-print" type="submit">Filter</button>
+            <button style="margin: 10px;" class="hidden-print" type="submit">Filter</button>
         </form>
     </div>
     <div>
