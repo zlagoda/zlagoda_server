@@ -3,6 +3,8 @@ CREATE TABLE `Employee` (
   `id_employee` VARCHAR(10) NOT NULL,
   `empl_surname` VARCHAR(50) NOT NULL,
   `empl_name` VARCHAR(50) NOT NULL,
+  `password` VARCHAR(72) NOT NULL,
+  `role` VARCHAR(15) NOT NULL,
   `empl_patronymic` VARCHAR(50) NULL,
   `salary` DECIMAL(13, 4) NOT NULL CHECK(`salary` > 0),
   `date_of_birth` DATE NOT NULL,
@@ -104,7 +106,7 @@ DROP TABLE IF EXISTS `Sale`;
 CREATE TABLE `Sale` (
   `UPC` VARCHAR(12) NOT NULL,
   `check_number` VARCHAR(10) NOT NULL,
-  `product_nubmer` INT NOT NULL,
+  `product_number` INT NOT NULL,
   `selling_price` DECIMAL(13, 4) NOT NULL,
   PRIMARY KEY (`UPC`, `check_number`),
   FOREIGN KEY(`UPC`) REFERENCES `Store_Product` (`UPC`) ON DELETE NO ACTION ON UPDATE CASCADE,

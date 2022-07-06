@@ -1,0 +1,26 @@
+@media print {
+  .hidden-print {
+    display: none !important;
+  }
+
+  .sidebar {
+    display: none !important;
+  }
+
+  .main-view {
+    margin: 0 !important;
+  }
+
+  .table__cell_header {
+    color: black !important;
+    font-weight: bold !important;
+  }
+
+  .table__cell {
+    border: 1px solid #000 !important;
+  }
+
+  .print-header {
+    display: inline !important;
+  }
+}

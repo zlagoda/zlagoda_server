@@ -4,7 +4,7 @@ services:
     ports:
       - 3306:3306
     volumes:
-      - ./database:/docker-entrypoint-initdb.d
+      - ./database/schema:/docker-entrypoint-initdb.d
       - database-storage:/var/lib/mysql
     environment:
       - MYSQL_ROOT_PASSWORD=root # change this
