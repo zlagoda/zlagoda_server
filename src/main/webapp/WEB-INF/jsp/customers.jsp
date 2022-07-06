@@ -65,7 +65,7 @@
         <c:if test="${empty customerCards}">
             <p>Seems like there are no employee records.</p>
         </c:if>
-        <a href="/customers/statistics">
+        <a class="hidden-print" href="/customers/statistics">
             <h5>Statistics</h5>
         </a>
     </div>

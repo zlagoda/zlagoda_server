@@ -57,7 +57,7 @@ public class DefaultCustomerCardDAO implements CustomerCardDAO
 			+ "WHERE card_number = :card_number;";
 
 	private static final String BOUGHT_PRODUCTS_SUM = "SELECT " +
-			"    SUM(`Check`.sum_total) AS check_sum, " +
+			"    SUM(`Check`.sum_total + `Check`.vat) AS check_sum, " +
 			"    `Check`.card_number, " +
 			"    Customer_Card.cust_name, " +
 			"    Customer_Card.cust_surname , Customer_Card.card_number , Customer_Card.cust_surname , Customer_Card.cust_patronymic , "

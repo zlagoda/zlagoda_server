@@ -66,7 +66,7 @@
     <a href="employee/add">
         <button class="hidden-print">Add</button>
     </a>
-    <a href="employees/statistics">
+    <a class="hidden-print" href="employees/statistics">
         <h5>Statistics</h5>
     </a>
 </template:page>

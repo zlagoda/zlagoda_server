@@ -48,7 +48,7 @@ tagdir="/WEB-INF/tags" %>
     <c:if test="${empty categories}">
         <p>Seems like there are no categories.</p>
     </c:if>
-      <a href="/manager/categories/statistics">
+      <a class="hidden-print" href="/manager/categories/statistics">
           <h5>Statistics</h5>
       </a>
   </div>
